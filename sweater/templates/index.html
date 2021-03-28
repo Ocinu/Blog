@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+
+    {% block head %}
+        <link rel="stylesheet" href="static/assets/css/style.css" />
+    {% endblock %}
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Suez+One&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- header -->
+    <header>
+        <span>ItStep Blog</span>
+        <nav>
+            <a href="/">main</a>
+            <a href="/">side</a>
+            <a href="/">about</a>
+        </nav>
+    </header>
+
+    {% block body %}
+    <!--  main block  -->
+    <div class="main">
+        <!-- left side panel -->
+        <aside>
+            <a href="/new_post">new post</a>
+
+            <div class="visitors">
+                <span>Visitors:</span>
+                <hr>
+
+                {% for article in articles %}
+                    <p>{{ article.author }}</p>
+                {% endfor %}
+
+            </div>
+        </aside>
+
+        <!--  article block  -->
+        <div>
+
+            {% for article in articles %}
+                <article>
+                    <div class="img_cont">
+                        <img src="static/images/pic02.jpg" alt="">
+                    </div>
+
+                    <div class="post_cont">
+                        <div class="post_body">
+                            <div class="post_header">
+                                <span>{{ article.author }}</span>
+                                <span>Date: {{ article.date }}</span>
+                            </div>
+                            <hr>
+                            <h4>{{ article.title }}</h4>
+                            <p>{{ article.text }}</p>
+                        </div>
+                        <div class="post_footer">
+                            <div>
+                                <span>Likes: <span>{{ article.likes }}</span></span>
+                                <span>Views: {{ article.views }}</span>
+                            </div>
+                            <div>
+                                <a href="/delete/{{ article.id }}">delete</a>
+                                <a href="/edit/{{ article.id }}">edit</a>
+                            </div>
+                            <a href="/article/{{ article.id }}">Read more</a>
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
+
+        </div>
+    </div>
+    {% endblock %}
+
+    <!--  footer  -->
+    <footer>
+        footer
+    </footer>
+
+    <!-- scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="static/assets/js/script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="http://localhost:5000{{ url_for('static', filename='assets/css/post.css') }}" />
+{% endblock %}
+
+{% block body %}
+<!--  article  -->
+    <article>
+        <p>{{ article.author }}</p><hr>
+        <h4>{{ article.title }}</h4>
+        <p class="article_body">{{ article.text }}</p>
+        <div class="article_footer">
+            <span>Views: {{ article.views }}</span>
+            <span>Likes: {{ article.likes }}</span>
+        </div>
+    </article>
+{% endblock %}
+
+

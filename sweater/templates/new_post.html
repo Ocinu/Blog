@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://localhost:5000{{ url_for('static', filename='assets/css/post.css') }}" />
+{% endblock %}
+
+
+{% block body %}
+    <div class="form_container">
+        <form method="post">
+
+            {% block label %}
+                <label for="author">Author:</label>
+                <input type="text" class="form-control" name="author" id="author" placeholder="author"><br>
+                <label for="title">Article title:</label>
+                <input type="text" class="form-control" name="title" id="title" placeholder="title"><br>
+                <label for="text">Article text:</label>
+                <textarea class="form-control" rows="5" name="text" id="text" placeholder="text"></textarea><br>
+            {% endblock %}
+
+            <button type="submit" class="btn btn-primary">add post</button>
+        </form>
+    </div>
+{% endblock %}

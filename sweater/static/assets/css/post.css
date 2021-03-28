@@ -1,0 +1,46 @@
+@import url(style.css);
+
+body {
+    background-color: aliceblue;
+}
+
+/* Article */
+article{
+    min-height: 80vh;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    float: none;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 50px;
+}
+
+article h4 {
+    margin-top: 30px;
+}
+
+.article_body {
+    text-align: left;
+    text-indent: 30px;
+}
+
+.article_footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* new-post */
+.form_container {
+    min-height: 80vh;
+    padding-top: 100px;
+}
+
+form {
+    max-width: 1000px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}

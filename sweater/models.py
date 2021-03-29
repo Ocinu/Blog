@@ -19,24 +19,42 @@ class NewArticle:
         return self._author
 
     @author.setter
-    def author(self, value):
-        self._author = value
+    def author(self, value: str):
+        if isinstance(value, str):
+            if len(value.split(' ')) < 4 and value.split(' ')[-1] != '' and value.split(' ')[0] != '':
+                self._author = value
+            else:
+                raise ValueError('В имени неможет быть больше 3-х слов')
+        else:
+            raise ValueError('Имя должно быть строкой')
 
     @property
     def title(self):
         return self._title
 
     @title.setter
-    def title(self, value):
-        self._title = value
+    def title(self, value: str):
+        if isinstance(value, str):
+            if len(value) < 100:
+                self._title = value
+            else:
+                raise ValueError('Название слишком длинное (до 100 символов')
+        else:
+            raise ValueError('Название должно быть строкой')
 
     @property
     def text(self):
         return self._text
 
     @text.setter
-    def text(self, value):
-        self._text = value
+    def text(self, value: str):
+        if isinstance(value, str):
+            if len(value) > 130:
+                self._text = value
+            else:
+                raise ValueError('Текст слишком короткий (от 130 символов')
+        else:
+            raise ValueError('Текст должен быть строкой')
 
 
 class Articles:

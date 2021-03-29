@@ -250,6 +250,11 @@ article {
     margin-bottom: 4px;
 }
 
+.modal_buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
 /* footer */
 
 footer {

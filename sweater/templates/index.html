@@ -11,6 +11,7 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Suez+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 </head>
 
 <body>
@@ -77,13 +78,23 @@
                                 <span>Views: {{ article.views }}</span>
                             </div>
                             <div class="post_edit">
-                                <a href="/delete/{{ article.id }}"><img src="static/icons/delete.svg" alt="">delete</a>
+                                <a href="#ex{{ article.id }}" rel="modal:open"><img src="static/icons/delete.svg" alt="">delete</a>
                                 <a href="/edit/{{ article.id }}"><img src="static/icons/edit.svg" alt="">edit</a>
                             </div>
                             <a href="/article/{{ article.id }}">Read more</a>
                         </div>
                     </div>
                 </article>
+
+                {#  Modal  #}
+                <div id="ex{{ article.id }}" class="modal">
+                    <p>Artical '{{ article.title }}'  will be <bold>deleted!</bold></p>
+                    <p>continue?</p>
+                    <div class="modal_buttons">
+                        <a href="/delete/{{ article.id }}">Delete</a>
+                        <a href="#" rel="modal:close">Close</a>
+                    </div>
+                </div>
             {% endfor %}
 
         </div>
@@ -95,8 +106,13 @@
         footer
     </footer>
 
+
+    <!-- Link to open the modal -->
+    <p><a href="#ex1" rel="modal:open">Open Modal</a></p>
+
     <!-- scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <script src="static/assets/js/script.js"></script>
 
 </body>

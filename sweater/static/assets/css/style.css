@@ -97,6 +97,31 @@ aside a:hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+/*  sorting form  */
+
+aside form {
+    display: block;
+    text-align: left;
+    padding: 30px 0 5px 10px;
+}
+
+aside form button {
+    background-color: #bcd5e0;
+    border-radius: 7px;
+    border: 1px solid gray;
+    float: right;
+    width: 70px;
+    height: 30px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: box-shadow 0.3s;
+}
+
+aside form button:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 .visitors {
     width: 90%;
     text-align: left;
@@ -175,7 +200,7 @@ article {
     width: 150px;
     height: 30px;
     border-radius: 4px;
-    background-color: #0bbb121c;
+    background-color: #bcd5e0;
     border: solid 1px #80808085;
     cursor: pointer;
     text-decoration: none;
@@ -183,12 +208,16 @@ article {
     text-transform: uppercase;
     transition: box-shadow 0.3s;
     margin-right: 10px;
+
 }
 
 .post_footer a:hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.post_edit {
+    font-size: 0.9rem;
+}
 
 /* footer */
 

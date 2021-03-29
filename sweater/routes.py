@@ -13,9 +13,19 @@ def before_request():
     articles = item.update_articles()
 
 
-@app.route('/')
+@app.route('/', methods=['POST', 'GET'])
 def main():
-    return render_template('index.html', title='ItStep Blog', articles=articles)
+    if request.method == 'POST':
+        value = request.form['sort_by']
+        if value == 'date':
+            articles = item.sort_by_date()
+            return render_template('index.html', title='ItStep Blog', articles=articles)
+        else:
+            articles = item.sort_by_author()
+            return render_template('index.html', title='ItStep Blog', articles=articles)
+    else:
+        articles = item.articles
+        return render_template('index.html', title='ItStep Blog', articles=articles)
 
 
 @app.route('/article/<int:post_id>')

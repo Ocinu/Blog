@@ -111,3 +111,11 @@ class Articles:
     def get_article(article_id: int):
         item = Item.query.get(article_id)
         return item
+
+    def sort_by_date(self):
+        self.articles = Item.query.order_by(Item.date).all()
+        return self.articles
+
+    def sort_by_author(self):
+        self.articles = Item.query.order_by(Item.author).all()
+        return self.articles

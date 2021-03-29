@@ -208,15 +208,46 @@ article {
     text-transform: uppercase;
     transition: box-shadow 0.3s;
     margin-right: 10px;
-
 }
 
 .post_footer a:hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.likes_cont {
+    display: flex;
+    align-items: center;
+}
+
+.likes_cont span {
+    margin-right: 5px;
+    margin-top: 3px;
+}
+.post_footer .img_like{
+    width: 30px;
+    height: 30px;
+    border: none;
+}
+
+.img_like img {
+    object-fit: cover;
+}
+
 .post_edit {
     font-size: 0.9rem;
+    display: inline-block;
+
+}
+
+.post_edit a {
+    vertical-align: middle;
+}
+
+.post_edit a img {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-bottom: 4px;
 }
 
 /* footer */

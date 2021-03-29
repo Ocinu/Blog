@@ -71,13 +71,14 @@
                             <p>{{ article.text }}</p>
                         </div>
                         <div class="post_footer">
-                            <div>
+                            <div class="likes_cont">
+                                <a class="img_like" href="/like/{{ article.id }}"><img src="static/icons/like.png" alt=""></a>
                                 <span>Likes: <span>{{ article.likes }}</span></span>
                                 <span>Views: {{ article.views }}</span>
                             </div>
                             <div class="post_edit">
-                                <a href="/delete/{{ article.id }}">delete</a>
-                                <a href="/edit/{{ article.id }}">edit</a>
+                                <a href="/delete/{{ article.id }}"><img src="static/icons/delete.svg" alt="">delete</a>
+                                <a href="/edit/{{ article.id }}"><img src="static/icons/edit.svg" alt="">edit</a>
                             </div>
                             <a href="/article/{{ article.id }}">Read more</a>
                         </div>

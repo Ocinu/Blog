@@ -52,7 +52,7 @@ class NewArticle:
             if len(value) > 130:
                 self._text = value
             else:
-                raise ValueError('Текст слишком короткий (от 130 символов')
+                raise ValueError('Текст слишком короткий (от 130 символов)')
         else:
             raise ValueError('Текст должен быть строкой')
 
@@ -104,6 +104,12 @@ class Articles:
     def update_views_count(self, article_id: int):
         item = Item.query.get(article_id)
         item.views += 1
+        self.save_db(item)
+        return item
+
+    def update_likes_count(self, article_id: int):
+        item = Item.query.get(article_id)
+        item.likes += 1
         self.save_db(item)
         return item
 

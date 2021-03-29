@@ -29,11 +29,20 @@ def main():
 
 
 @app.route('/article/<int:post_id>')
-def post(post_id):
+def article(post_id):
     for article in articles:
         if article.id == post_id:
             article = item.update_views_count(post_id)
             return render_template('article.html', title='Article', article=article)
+    abort(404)
+
+
+@app.route('/like/<int:post_id>')
+def add_like(post_id):
+    for article in articles:
+        if article.id == post_id:
+            item.update_likes_count(post_id)
+            return redirect('/')
     abort(404)
 
 

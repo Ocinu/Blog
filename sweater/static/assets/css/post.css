@@ -44,3 +44,12 @@ form {
     left: 50%;
     transform: translateX(-50%);
 }
+
+/* delete page */
+.delete_message {
+    min-height: 80vh;
+    width: 100vw;
+    display:inline-block;
+    text-align: center;
+    padding-top: 50px;
+}

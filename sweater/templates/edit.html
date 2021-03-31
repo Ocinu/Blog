@@ -6,5 +6,5 @@
     <label for="title">Article title:</label>
     <input type="text" class="form-control" name="title" id="title" placeholder="title" value="{{ article.title }}"><br>
     <label for="text">Article text:</label>
-    <textarea class="form-control" rows="5" name="text" id="text" placeholder="text" value="{{ article.text }}"></textarea><br>
+    <textarea class="form-control" rows="5" name="text" id="text" placeholder="text">{{ article.text }}</textarea><br>
 {% endblock %}

@@ -19,11 +19,23 @@
     <!-- header -->
     <header>
         <span>ItStep Blog</span>
-        <nav>
-            <a href="/">main</a>
-            <a href="/">side</a>
-            <a href="/">about</a>
-        </nav>
+
+        <div class="header_nav">
+            <nav>
+                <a href="/">main</a>
+                <a href="/">side</a>
+                <a href="/">about</a>
+            </nav>
+
+            {% if user.is_authenticated %}
+                <div class="login_user">
+                    <h2>Hi, {{ user.login }}!</h2>
+                    <a href={{ url_for('logout') }}>logout</a>
+                </div>
+            {% else %}
+                <a class="login_btn" href={{ url_for('login_page') }}>login</a>
+            {% endif %}
+        </div>
     </header>
 
     {% block body %}
@@ -58,7 +70,7 @@
             {% for article in articles %}
                 <article>
                     <div class="img_cont">
-                        <img src="static/images/pic02.jpg" alt="">
+                        <img src="static/images/{{ article.image }}" alt="">
                     </div>
 
                     <div class="post_cont">
@@ -69,7 +81,7 @@
                             </div>
                             <hr>
                             <h4>{{ article.title }}</h4>
-                            <p>{{ article.text }}</p>
+                            <p>{{ article.text[:400] }}</p>
                         </div>
                         <div class="post_footer">
                             <div class="likes_cont">
@@ -77,10 +89,14 @@
                                 <span>Likes: <span>{{ article.likes }}</span></span>
                                 <span>Views: {{ article.views }}</span>
                             </div>
-                            <div class="post_edit">
-                                <a href="#ex{{ article.id }}" rel="modal:open"><img src="static/icons/delete.svg" alt="">delete</a>
-                                <a href="/edit/{{ article.id }}"><img src="static/icons/edit.svg" alt="">edit</a>
-                            </div>
+
+                            {% if article.author == user.name %}
+                                <div class="post_edit">
+                                    <a href="#ex{{ article.id }}" rel="modal:open"><img src="static/icons/delete.svg" alt="">delete</a>
+                                    <a href="/edit/{{ article.id }}"><img src="static/icons/edit.svg" alt="">edit</a>
+                                </div>
+                            {% endif %}
+
                             <a href="/article/{{ article.id }}">Read more</a>
                         </div>
                     </div>
@@ -95,6 +111,7 @@
                         <a href="#" rel="modal:close">Close</a>
                     </div>
                 </div>
+
             {% endfor %}
 
         </div>
@@ -108,13 +125,14 @@
 
 
     <!-- Link to open the modal -->
-    <p><a href="#ex1" rel="modal:open">Open Modal</a></p>
+{#    <p><a href="#" rel="modal:open">Open Modal</a></p>   #}
 
     <!-- scripts -->
+    {% block scripts %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <script src="static/assets/js/script.js"></script>
-
+    {% endblock %}
 </body>
 
 </html>

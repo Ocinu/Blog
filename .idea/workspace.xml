@@ -2,9 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="52be534e-9ef2-4398-b93c-9794a7c7429b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/sweater/templates/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sweater/templates/register.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/blog.db" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/blog.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweater/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweater/blog.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweater/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/database.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweater/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweater/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweater/static/assets/css/post.css" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/static/assets/css/post.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweater/static/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/static/assets/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweater/static/images/bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweater/static/images/pic01.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweater/static/images/pic02.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweater/static/images/pic03.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweater/static/images/pic04.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweater/static/images/slide01.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweater/static/images/slide02.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweater/static/images/slide03.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweater/static/images/slide04.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweater/static/images/slide05.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweater/templates/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/templates/edit.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sweater/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweater/templates/new_post.html" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/templates/new_post.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,6 +37,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Flask Main" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -41,10 +64,12 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Fake/DB2_Limited_test" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Python_dz" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager" selected="Python.app">
@@ -130,7 +155,12 @@
       <workItem from="1616994213925" duration="47000" />
       <workItem from="1616994305397" duration="37000" />
       <workItem from="1616994416677" duration="5945000" />
-      <workItem from="1617019431777" duration="14149000" />
+      <workItem from="1617019431777" duration="15740000" />
+      <workItem from="1617064958487" duration="17299000" />
+      <workItem from="1617099630992" duration="19707000" />
+      <workItem from="1617131982629" duration="137000" />
+      <workItem from="1617151842658" duration="19187000" />
+      <workItem from="1617189670969" duration="8353000" />
     </task>
     <task id="LOCAL-00001" summary="Подключение SQLite&#10;Реализация просмотра, редактирования, удаления статей.&#10;Счетчик просмотров, автозаполнение даты">
       <created>1616954941821</created>
@@ -160,7 +190,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617035342814</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="модальное окно подтверждения удаления статьи">
+      <created>1617043042456</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1617043042456</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -195,10 +232,11 @@
     <MESSAGE value="Логгер, валидация данных при получении статьи" />
     <MESSAGE value="реализация сортировки по дате/автору" />
     <MESSAGE value="счетчик лайков" />
-    <option name="LAST_COMMIT_MESSAGE" value="счетчик лайков" />
+    <MESSAGE value="модальное окно подтверждения удаления статьи" />
+    <option name="LAST_COMMIT_MESSAGE" value="модальное окно подтверждения удаления статьи" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Blog$app.coverage" NAME="app Coverage Results" MODIFIED="1617042518379" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Blog$test.coverage" NAME="test Coverage Results" MODIFIED="1616981826186" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sweater" />
+    <SUITE FILE_PATH="coverage/Blog$app.coverage" NAME="app Coverage Results" MODIFIED="1617195991786" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Blog$test.coverage" NAME="test Coverage Results" MODIFIED="1617195310546" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sweater" />
   </component>
 </project>

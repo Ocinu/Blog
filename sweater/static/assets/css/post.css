@@ -53,3 +53,16 @@ form {
     text-align: center;
     padding-top: 50px;
 }
+
+/* login page */
+.login_container {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.flashes {
+    align-self: center;
+    color: red;
+}

@@ -1,32 +1,46 @@
+import os
+import random
+import string
 from datetime import datetime
 
-from sweater import db
+from werkzeug.utils import secure_filename
+
+from sweater import db, app
 from sweater.database import Item
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 class NewArticle:
-    def __init__(self, author, title, text):
+    def __init__(self, author, title, text, image):
         self.id = None
+        self.errors = ''
         self.author = author
         self.title = title
         self.text = text
         self.date = datetime.strftime(datetime.now(), '%Y-%m-%d')
         self.likes = 0
         self.views = 0
+        self.image = image
 
-    @property
-    def author(self):
-        return self._author
-
-    @author.setter
-    def author(self, value: str):
-        if isinstance(value, str):
-            if len(value.split(' ')) < 4 and value.split(' ')[-1] != '' and value.split(' ')[0] != '':
-                self._author = value
-            else:
-                raise ValueError('В имени неможет быть больше 3-х слов')
-        else:
-            raise ValueError('Имя должно быть строкой')
+    # @property
+    # def author(self):
+    #     return self._author
+    #
+    # @author.setter
+    # def author(self, value: str):
+    #     if isinstance(value, str):
+    #         if len(value.split(' ')) < 4 and value.split(' ')[-1] != '' and value.split(' ')[0] != '':
+    #             self._author = value
+    #         else:
+    #             self.errors.append('В имени неможет быть больше 3-х слов')
+    #     else:
+    #         self.errors.append('Имя должно быть строкой')
 
     @property
     def title(self):
@@ -38,9 +52,13 @@ class NewArticle:
             if len(value) < 100:
                 self._title = value
             else:
-                raise ValueError('Название слишком длинное (до 100 символов')
+                error = 'Название слишком длинное (до 100 символов)\n'
+                self.add_error(error)
+                self._title = ''
         else:
-            raise ValueError('Название должно быть строкой')
+            error = 'Название должно быть строкой\n'
+            self.add_error(error)
+            self._title = ''
 
     @property
     def text(self):
@@ -52,9 +70,46 @@ class NewArticle:
             if len(value) > 130:
                 self._text = value
             else:
-                raise ValueError('Текст слишком короткий (от 130 символов)')
+                error = 'Текст слишком короткий (от 130 символов)\n'
+                self.add_error(error)
+                self._text = ''
         else:
-            raise ValueError('Текст должен быть строкой')
+            error = 'Текст должен быть строкой\n'
+            self.add_error(error)
+            self._text = ''
+
+    @property
+    def image(self):
+        return self._image
+
+    @image.setter
+    def image(self, value):
+        if value == '':
+            error = 'Файл не выбран\n'
+            self.add_error(error)
+            self._image = ''
+        elif value and allowed_file(value.filename):
+            # filename = secure_filename(value.filename)
+            random_name = ''.join([random.choice(string.digits + string.ascii_letters) for x in range(10)])
+            img_path = f'sweater/static/images/{random_name}.jpg'
+
+            try:
+                # value.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                value.save(img_path)
+            except Exception as e:
+                print(e)
+
+            self._image = str(img_path.split('/')[-1:])[2:-2]
+            # self._image = filename
+
+        else:
+            error = 'Неверное расширение файла\n'
+            self.add_error(error)
+            self._image = ''
+
+    def add_error(self, error):
+        self.errors = self.errors + error
+        return self.errors
 
 
 class Articles:
@@ -69,12 +124,20 @@ class Articles:
         except:
             return 'Ошибка записи в базу данных'
 
-    def add_new_post(self, author, title, text):
-        article = NewArticle(author, title, text)
-        item = Item(author=article.author, title=article.title, text=article.text, date=article.date)
-        self.save_db(item)
-        self.articles = Item.query.all()
-        return self.articles
+    def add_new_post(self, author, title, text, image):
+        article = NewArticle(author, title, text, image)
+
+        if len(article.errors) > 0:
+            return str(article.errors)
+        else:
+            item = Item(author=article.author,
+                        title=article.title,
+                        text=article.text,
+                        date=article.date,
+                        image=article.image)
+            self.save_db(item)
+            self.articles = Item.query.all()
+            return self.articles
 
     def update_articles(self):
         self.articles = Item.query.all()

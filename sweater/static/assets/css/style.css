@@ -24,7 +24,6 @@ body {
 header {
     width: 100%;
     height: 90px;
-    /*background-color: #2700ff36;*/
     background-image: linear-gradient(#2700ff36, #8f8c92b5);
     display: flex;
     align-items: center;
@@ -35,6 +34,12 @@ header span {
     margin-left: 20px;
     font-family: 'Suez One', serif;
     font-size: 1.3rem;
+}
+
+.header_nav{
+    display: flex;
+    height: 100%;
+    margin-right: 70px;
 }
 
 header nav {
@@ -57,6 +62,43 @@ header nav a:hover {
     color: blueviolet;
 }
 
+.login_btn {
+    display: flex;
+    align-self: center;
+    height: 40px;
+    width: 120px;
+    background-color: #93c5dc80;
+    border-radius: 10px;
+    border: solid 1px #80808085;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: black;
+    transition: box-shadow 0.3s;
+}
+
+.login_btn:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.login_user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login_user a {
+    text-decoration: none;
+    color: black;
+    font-size: 0.8rem;
+    transition: color 0.3s;
+}
+
+.login_user a:hover {
+    color: blueviolet;
+}
 
 
 /* main block */

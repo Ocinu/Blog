@@ -1,10 +1,14 @@
 {% extends 'new_post.html' %}
 
 {% block label %}
-    <label for="author">Author:</label>
-    <input type="text" class="form-control" name="author" id="author" placeholder="author" value="{{ article.author }}"><br>
     <label for="title">Article title:</label>
-    <input type="text" class="form-control" name="title" id="title" placeholder="title" value="{{ article.title }}"><br>
+    <input type="text" class="form-control" name="title" id="title" placeholder="title"><br>
+
+    <label for="article_image">Article image:</label><br>
+    <input type="file" name="article_image"><br><br>
+
     <label for="text">Article text:</label>
-    <textarea class="form-control" rows="5" name="text" id="text" placeholder="text">{{ article.text }}</textarea><br>
+    <textarea class="form-control" rows="5" name="text" id="text" placeholder="text"></textarea><br>
+
+    <button type="submit" class="btn btn-primary">Edit post</button>
 {% endblock %}

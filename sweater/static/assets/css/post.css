@@ -56,7 +56,7 @@ form {
 
 /* login page */
 .login_container {
-    min-height: 80vh;
+    min-height: 82vh;
     display: flex;
     flex-direction: column;
     justify-content: center;

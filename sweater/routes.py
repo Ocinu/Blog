@@ -3,11 +3,11 @@ from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from sweater import app
-from sweater.models import Articles
+from sweater.models import Articles, NewUser
 from sweater.database import User, db
 
 item = Articles()
-articles = item.articles
+articles = item.update_articles()
 
 
 @app.before_request
@@ -22,14 +22,14 @@ def main():
     if request.method == 'POST':
         value = request.form['sort_by']
         if value == 'date':
-            articles = item.sort_by_date()
-            return render_template('index.html', title='ItStep Blog', articles=articles, user=user)
+            sorted_articles = item.sort_by_date()
+            return render_template('index.html', title='ItStep Blog', articles=sorted_articles, user=user)
         else:
-            articles = item.sort_by_author()
-            return render_template('index.html', title='ItStep Blog', articles=articles, user=user)
+            sorted_articles = item.sort_by_author()
+            return render_template('index.html', title='ItStep Blog', articles=sorted_articles, user=user)
     else:
-        articles = item.articles
-        return render_template('index.html', title='ItStep Blog', articles=articles, user=user)
+        posts = item.update_articles()
+        return render_template('index.html', title='ItStep Blog', articles=posts, user=user)
 
 
 @app.route('/article/<int:post_id>')
@@ -60,11 +60,14 @@ def new_post():
         text = request.form['text']
         image = request.files['article_image']
 
-        temp = item.add_new_post(author, title, text, image)
-        if type(temp) == str:
-            flash(temp)
+        check_errors = item.add_new_post(author, title, text, image)
+        if type(check_errors) == str:
+            flash(check_errors)
             return render_template('new_post.html', title='New post', user=current_user)
         else:
+            current_user.post_number += 1
+            db.session.add(current_user)
+            db.session.commit()
             return redirect('/')
 
     else:
@@ -76,14 +79,17 @@ def new_post():
 def edit_article(post_id):
     article = item.get_article(post_id)
     if request.method == 'POST':
-        author = request.form['author']
+        author = current_user.name
         title = request.form['title']
         text = request.form['text']
-        try:
-            item.edit_article(author, title, text, post_id)
+        image = request.files['article_image']
+        #  валидация полученных данных
+        check_errors = item.edit_article(author, title, text, image, post_id)
+        if type(check_errors) == str:
+            flash(check_errors)
+            return render_template('edit.html', title='Edit article', article=article, user=current_user)
+        else:
             return redirect('/')
-        except Exception as e:
-            print(e)
     else:
         return render_template('edit.html', title='Edit article', article=article, user=current_user)
 
@@ -121,23 +127,29 @@ def login_page():
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
-    login = request.form.get('login')
-    password = request.form.get('password')
-    password2 = request.form.get('password2')
-    name = request.form.get('name')
-    email = request.form.get('email')
-
+    # если отправляем форму:
     if request.method == 'POST':
-        if not (login or password or password2 or name or email):
+        login = request.form.get('login')
+        password = request.form.get('password')
+        password2 = request.form.get('password2')
+        name = request.form.get('name')
+        email = request.form.get('email')
+        phone = request.form.get('phone')
+        avatar = request.files['avatar']
+
+        # проверяем все ли поля заполнены
+        if not (login or password or password2 or name or email or phone or avatar):
             flash('Please fill all fields')
-        elif password != password2:
-            flash('Passwords are not equal')
-        else:
-            hash_pwd = generate_password_hash(password)
-            new_user = User(login=login, password=hash_pwd, name=name, email=email)
-            db.session.add(new_user)
-            db.session.commit()
-            return redirect(url_for('login_page'))
+            return render_template('register.html', user=current_user)
+
+        new_user = NewUser(name, email, phone, avatar, login, password, password2)
+
+        # если есть ошибки выводим флэш, иначем добавляем юзера и переходим на логин
+        check_errors = new_user.add_new_user(avatar)
+        if type(check_errors) == str:
+            flash(check_errors)
+            return render_template('register.html', user=current_user)
+        return redirect(url_for('login_page'))
 
     return render_template('register.html', user=current_user)
 

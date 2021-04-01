@@ -2,31 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="52be534e-9ef2-4398-b93c-9794a7c7429b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/sweater/templates/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sweater/templates/register.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sweater/blog.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/blog.db" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sweater/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/database.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sweater/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sweater/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/routes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sweater/static/assets/css/post.css" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/static/assets/css/post.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/static/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/static/assets/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/static/images/bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/static/images/pic01.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/static/images/pic02.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/static/images/pic03.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/static/images/pic04.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/static/images/slide01.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/static/images/slide02.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/static/images/slide03.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/static/images/slide04.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/static/images/slide05.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sweater/templates/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/templates/edit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sweater/templates/new_post.html" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/templates/new_post.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweater/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/templates/register.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,7 +144,7 @@
       <workItem from="1617099630992" duration="19707000" />
       <workItem from="1617131982629" duration="137000" />
       <workItem from="1617151842658" duration="19187000" />
-      <workItem from="1617189670969" duration="8353000" />
+      <workItem from="1617189670969" duration="49666000" />
     </task>
     <task id="LOCAL-00001" summary="Подключение SQLite&#10;Реализация просмотра, редактирования, удаления статей.&#10;Счетчик просмотров, автозаполнение даты">
       <created>1616954941821</created>
@@ -197,7 +181,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617043042456</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="- Добавлена авторизация&#10;- Кнопки редактирования видны только автору поста&#10;- Верификация данных при создании нового поста&#10;- Перенаправление на страницу, которая требовала авторизации после логина">
+      <created>1617198387471</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1617198387471</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -233,10 +224,27 @@
     <MESSAGE value="реализация сортировки по дате/автору" />
     <MESSAGE value="счетчик лайков" />
     <MESSAGE value="модальное окно подтверждения удаления статьи" />
-    <option name="LAST_COMMIT_MESSAGE" value="модальное окно подтверждения удаления статьи" />
+    <MESSAGE value="- Добавлена авторизация&#10;- Кнопки редактирования видны только автору поста&#10;- Верификация данных при создании нового поста&#10;- Перенаправление на страницу, которая требовала авторизации после логина" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Добавлена авторизация&#10;- Кнопки редактирования видны только автору поста&#10;- Верификация данных при создании нового поста&#10;- Перенаправление на страницу, которая требовала авторизации после логина" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/sweater/routes.py</url>
+          <line>148</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/sweater/models.py</url>
+          <line>335</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Blog$app.coverage" NAME="app Coverage Results" MODIFIED="1617195991786" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Blog$test.coverage" NAME="test Coverage Results" MODIFIED="1617195310546" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sweater" />
+    <SUITE FILE_PATH="coverage/Blog$app.coverage" NAME="app Coverage Results" MODIFIED="1617262824707" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Blog$test.coverage" NAME="test Coverage Results" MODIFIED="1617252410991" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sweater" />
   </component>
 </project>

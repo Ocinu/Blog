@@ -225,10 +225,18 @@ article {
     font-size: 1.1rem;
 }
 
-.post_body p {
+.post_text {
     text-align: left;
     text-indent: 20px;
-    height: 165px;
+    height: 100px;
+    overflow: hidden;
+}
+
+.post_text_footer {
+    text-align: left;
+    text-indent: 20px;
+    height: 34px;
+    margin-top: 6px;
     overflow: hidden;
 }
 

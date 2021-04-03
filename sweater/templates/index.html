@@ -23,7 +23,7 @@
         <div class="header_nav">
             <nav>
                 <a href="/">main</a>
-                <a href="/">side</a>
+                <a href="/authors">authors</a>
                 <a href="/">about</a>
             </nav>
 
@@ -76,21 +76,24 @@
                     <div class="post_cont">
                         <div class="post_body">
                             <div class="post_header">
-                                <span>{{ article.author }}</span>
-                                <span>Date: {{ article.date }}</span>
+                                <span>{{ article.author.name }}</span>
+                                <span>Date: {{ article.created_on }}</span>
                             </div>
                             <hr>
                             <h4>{{ article.title }}</h4>
-                            <p>{{ article.text[:400] }}</p>
+                            <p class="post_text">{{ article.text[:400] }}</p>
+                            <p class="post_text_footer">Category: <a href="#">{{ article.category.category_name }}</a></p>
                         </div>
                         <div class="post_footer">
                             <div class="likes_cont">
-                                <a class="img_like" href="/like/{{ article.id }}"><img src="static/icons/like.png" alt=""></a>
-                                <span>Likes: <span>{{ article.likes }}</span></span>
+                                {% if article.id not in likes_count %}
+                                    <a class="img_like" href="/like/{{ article.id }}"><img src="static/icons/like.png" alt=""></a>
+                                {% endif %}
+                                <span>Likes: <span>{{ article.likes_count }}</span></span>
                                 <span>Views: {{ article.views }}</span>
                             </div>
 
-                            {% if article.author == user.name %}
+                            {% if article.author_id == user.id %}
                                 <div class="post_edit">
                                     <a href="#ex{{ article.id }}" rel="modal:open"><img src="static/icons/delete.svg" alt="">delete</a>
                                     <a href="/edit/{{ article.id }}"><img src="static/icons/edit.svg" alt="">edit</a>

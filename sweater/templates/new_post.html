@@ -25,6 +25,13 @@
                 <label for="title">Article title:</label>
                 <input type="text" class="form-control" name="title" id="title" placeholder="title"><br>
 
+                <label for="exampleFormControlSelect1">Select category:</label>
+                <select name="category_id" class="form-control" id="exampleFormControlSelect1">
+                {% for category in categories %}
+                  <option value="{{ category.id }}">{{ category.category_name }}</option>
+                {% endfor %}
+                </select>
+
                 <label for="article_image">Article image:</label><br>
                 <input type="file" name="article_image"><br><br>
 

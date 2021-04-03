@@ -1,10 +1,10 @@
 from flask import render_template, abort, request, redirect, flash, url_for
 from flask_login import login_user, login_required, logout_user, current_user
-from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.security import check_password_hash
 
 from sweater import app
-from sweater.models import Articles, NewUser
-from sweater.database import User, db
+from sweater.articles import Articles, NewUser
+from sweater.models import User, db, Category, Likes
 
 item = Articles()
 articles = item.update_articles()
@@ -18,18 +18,31 @@ def before_request():
 
 @app.route('/', methods=['POST', 'GET'])
 def main():
+    likes_count = [i.post_id for i in Likes.query.filter_by(user_id=current_user.id).all()]
     user = current_user
     if request.method == 'POST':
         value = request.form['sort_by']
         if value == 'date':
             sorted_articles = item.sort_by_date()
-            return render_template('index.html', title='ItStep Blog', articles=sorted_articles, user=user)
+            return render_template('index.html',
+                                   title='ItStep Blog',
+                                   articles=sorted_articles,
+                                   user=user,
+                                   likes_count=likes_count)
         else:
             sorted_articles = item.sort_by_author()
-            return render_template('index.html', title='ItStep Blog', articles=sorted_articles, user=user)
+            return render_template('index.html',
+                                   title='ItStep Blog',
+                                   articles=sorted_articles,
+                                   user=user,
+                                   likes_count=likes_count)
     else:
         posts = item.update_articles()
-        return render_template('index.html', title='ItStep Blog', articles=posts, user=user)
+        return render_template('index.html',
+                               title='ItStep Blog',
+                               articles=posts,
+                               user=user,
+                               likes_count=likes_count)
 
 
 @app.route('/article/<int:post_id>')
@@ -44,26 +57,29 @@ def article(post_id):
 @app.route('/like/<int:post_id>')
 @login_required
 def add_like(post_id):
-    for article in articles:
-        if article.id == post_id:
-            item.update_likes_count(post_id)
-            return redirect('/')
+    likes_count = [i.post_id for i in Likes.query.filter_by(user_id=current_user.id).all()]
+    print(likes_count)
+    if post_id not in likes_count:
+        item.update_likes_count(post_id, current_user.id)
+        return redirect('/')
     abort(404)
 
 
 @app.route('/new_post', methods=['POST', 'GET'])
 @login_required
 def new_post():
+    categories = Category.query.all()
     if request.method == 'POST':
-        author = current_user.name
+        author_id = current_user.id
+        category_id = request.form['category_id']
         title = request.form['title']
         text = request.form['text']
         image = request.files['article_image']
 
-        check_errors = item.add_new_post(author, title, text, image)
+        check_errors = item.add_new_post(author_id, title, text, image, category_id)
         if type(check_errors) == str:
             flash(check_errors)
-            return render_template('new_post.html', title='New post', user=current_user)
+            return render_template('new_post.html', title='New post', user=current_user, categories=categories)
         else:
             current_user.post_number += 1
             db.session.add(current_user)
@@ -71,7 +87,7 @@ def new_post():
             return redirect('/')
 
     else:
-        return render_template('new_post.html', title='New post', user=current_user)
+        return render_template('new_post.html', title='New post', user=current_user, categories=categories)
 
 
 @app.route('/edit/<int:post_id>', methods=['POST', 'GET'])
@@ -135,7 +151,7 @@ def register():
         name = request.form.get('name')
         email = request.form.get('email')
         phone = request.form.get('phone')
-        avatar = request.files['avatar']
+        avatar = request.files.get('avatar')
 
         # проверяем все ли поля заполнены
         if not (login or password or password2 or name or email or phone or avatar):
@@ -159,6 +175,13 @@ def register():
 def logout():
     logout_user()
     return redirect(url_for('main'))
+
+
+@app.route('/authors')
+def authors():
+    user = current_user
+    all_authors = User.query.all()
+    return render_template('authors.html', authors=all_authors, user=user)
 
 
 @app.after_request

@@ -1,29 +1,29 @@
-{% extends 'new_post.html' %}
+{% extends 'new_article.html' %}
 
 
 
 {% block body %}
 <!--  article  -->
+{% for author in authors %}
     <div class="container">
-
-    {% for author in authors %}
       <div class="row mb-2">
-{#        <div class="col-md-6">#}
-          <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+          <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative info_cont">
             <div class="col p-4 d-flex flex-column position-static">
               <strong class="d-inline-block mb-2 text-success">{{ author.login }}</strong>
               <h3 class="mb-0">{{ author.name }}</h3>
-              <div class="mb-1 text-muted">{{ author.registration_date[:11] }}</div>
-              <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="stretched-link">Continue reading</a>
+              <div class="mb-1 text-muted">Registered: {{ author.registration_date[:11] }}</div>
+                  <div class="mb-1 text-muted">Number of articles: {{ author.post_number }}</div>
+              <p class="mb-auto">Some info about author. Please fill in this field for correct display. Editing is available on the author's page.</p>
+              <a href="author/{{ author.id }}" class="stretched-link">More info</a>
             </div>
-            <div class="col-auto d-none d-lg-block">
-              <svg class="bd-placeholder-img" width="300" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-            </div>
+              <div class="avatar_img">
+                <img class="d-none d-lg-block" src="static/images/{{ author.avatar }}" width="300" height="300" alt="" />
+              </div>
           </div>
         </div>
-      </div>
-    {% endfor %}
-
     </div>
+
+{% endfor %}
+
+
 {% endblock %}

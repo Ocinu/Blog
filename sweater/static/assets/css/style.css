@@ -117,7 +117,7 @@ aside {
     text-align: center;
 }
 
-aside a {
+.new_post_btn {
     background-color: #93c5dc80;
     margin-top: 25px;
     display: inline-block;
@@ -135,7 +135,7 @@ aside a {
     transition: box-shadow 0.3s;
 }
 
-aside a:hover {
+.new_post_btn:hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -313,4 +313,40 @@ footer {
     background-color: black;
     color: white;
     text-align: center;
+}
+
+/* styling the buttons "will share" */
+.share-btns {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.share-btns a {
+    margin-bottom: 5px;
+    width: 40px;
+    height: 40px;
+}
+
+.share-btns a:not(:last-child) {
+    margin-right: 5px;
+}
+
+.share-btns a.facebook {
+    background: url("../img/share-btns.png") no-repeat left top;
+}
+
+.share-btns a.ok {
+    background: url("../img/share-btns.png") no-repeat -126px top;
+}
+
+.share-btns a.twitter {
+    background: url("../img/share-btns.png") no-repeat -42px top;
+}
+
+
+
+
+
+.share-btns a.telegram {
+    background: url("../img/share-btns.png") no-repeat -672px top;
 }

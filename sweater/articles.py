@@ -152,6 +152,7 @@ class Articles:
     def delete_article(self, article_id):
         try:
             item = Article.query.get(article_id)
+            item.author.post_number -= 1
             os.remove(os.path.join(app.config['UPLOAD_FOLDER'], item.image))
             db.session.delete(item)
             db.session.commit()
@@ -198,11 +199,11 @@ class Articles:
         return item
 
     def sort_by_date(self):
-        self.articles = Article.query.order_by(Article.date).all()
+        self.articles = Article.query.order_by(Article.created_on).all()
         return self.articles
 
     def sort_by_author(self):
-        self.articles = Article.query.order_by(Article.author).all()
+        self.articles = Article.query.order_by(Article.author_id).all()
         return self.articles
 
 
@@ -213,7 +214,7 @@ class NewUser:
         self.email = email
         self.phone = phone
         self.avatar = avatar
-        # self.registration_date = datetime.strftime(datetime.now(), '%Y-%m-%d')
+        self.registration_date = datetime.strftime(datetime.now(), '%Y-%m-%d')
         self.login = login
         self.password = password
         self.password2 = password2
@@ -341,12 +342,15 @@ class NewUser:
     def add_new_user(self, avatar):
         if len(self.errors) > 0:
             return self.errors
-        new_user = User(name=self.name,
-                        email=self.email,
-                        phone=self.phone,
-                        avatar=self.avatar,
-                        login=self.login,
-                        password=self.password)
+        new_user = User()
+        new_user.name = self.name
+        new_user.email = self.email
+        new_user.phone = self.phone
+        new_user.avatar = self.avatar
+        new_user.registration_date = self.registration_date
+        new_user.login = self.login
+        new_user.password = self.password
+
         try:
             db.session.add(new_user)
             db.session.commit()
@@ -354,3 +358,105 @@ class NewUser:
             print(e)
         avatar.save(os.path.join(app.config['UPLOAD_FOLDER'], self.avatar))
         return True
+
+
+class Author:
+    def __init__(self, user_id: int):
+        self.errors = ''
+        self.user = user_id
+
+    @property
+    def user(self):
+        return self._user_id
+
+    @user.setter
+    def user(self, value: int):
+        self._user_id = User.query.get(value)
+
+    def add_error(self, error):
+        self.errors = self.errors + error
+        return self.errors
+
+    def check_password(self, password):
+        if check_password_hash(self.user.password, password):
+            return True
+        else:
+            error = 'Password incorrect\n'
+            self.add_error(error)
+            return False
+
+    def save_db(self):
+        db.session.add(self.user)
+        db.session.commit()
+
+    def edit_info(self, login, name, email, phone):
+        self.edit_login(login)
+        self.edit_name(name)
+        self.edit_email(email)
+        self.edit_phone(phone)
+        return self.user
+
+    def edit_login(self, value):
+        value = value.strip()
+        #  проверка на уникальность логина
+        exist_user = User.query.filter_by(login=value).all()
+        if exist_user and self.user.login != value:
+            error = 'Пользователь с таким логином уже зарегестрирован\n'
+            self.add_error(error)
+            self.user.login = value
+            return self.user.name
+        else:
+            if 4 < len(value) < 30:
+                self.user.login = value
+                return self.user.name
+            else:
+                error = 'От 5 до 30 символов\n'
+                self.add_error(error)
+                self.user.login = value
+                return self.user.name
+
+    def edit_name(self, value):
+        if isinstance(value, str):
+            #  убираем лишние пробелы
+            value = ' '.join([x for x in value.split(' ') if x != ''])
+            if len(value.split(' ')) <= 3:
+                self.user.name = value
+                return self.user.name
+            else:
+                error = 'В имени неможет быть больше 3-х слов\n'
+                self.add_error(error)
+                self.user.name = value
+                return self.user.name
+        else:
+            error = 'Имя должно быть строкой\n'
+            self.add_error(error)
+            self.user.name = value
+            return self.user.name
+
+    def edit_email(self, value):
+        #  проверка на уникальность email
+        exist_email = User.query.filter_by(email=value).all()
+        if exist_email and self.user.email != value:
+            error = 'Такой электронный адрес уже зарегистрирован\n'
+            self.add_error(error)
+            self.user.email = value
+            return self.user.email
+        else:
+            if re.search(r'(\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,6})', str(value)):
+                self.user.email = value
+                return self.user.email
+            else:
+                error = 'Введите корректный электронный адрес\n'
+                self.add_error(error)
+                self.user.email = value
+                return self.user.email
+
+    def edit_phone(self, value):
+        if re.search(r'^\+\d{12}$', str(value)):
+            self.user.phone = value
+            return self.user.phone
+        else:
+            error = 'Введите номер телефона в формате +380999999999\n'
+            self.add_error(error)
+            self.user.phone = value
+            return self.user.phone

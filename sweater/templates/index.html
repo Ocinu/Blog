@@ -22,6 +22,10 @@
 
         <div class="header_nav">
             <nav>
+                {% if user.access_rights == 5 %}
+                    <a href="/admin">admin panel</a>
+                {% endif %}
+
                 <a href="/">main</a>
                 <a href="/authors">authors</a>
                 <a href="/">about</a>
@@ -29,7 +33,7 @@
 
             {% if user.is_authenticated %}
                 <div class="login_user">
-                    <h2>Hi, {{ user.login }}!</h2>
+                    <h2>Hi, {{ current_user.login }}!</h2>
                     <a href={{ url_for('logout') }}>logout</a>
                 </div>
             {% else %}
@@ -43,7 +47,7 @@
     <div class="main">
         <!-- left side panel -->
         <aside>
-            <a href="/new_post">new post</a>
+            <a href="/new_article" class="new_post_btn">new article</a>
 
             <form method="post">
                 <input type="radio" id="date" name="sort_by" value="date" checked>
@@ -54,11 +58,11 @@
             </form>
 
             <div class="visitors">
-                <span>Visitors:</span>
+                <span>Categories:</span>
                 <hr>
 
-                {% for article in articles %}
-                    <p>{{ article.author }}</p>
+                {% for category in categories %}
+                    <p><a href="">{{ category.category_name }}</a></p>
                 {% endfor %}
 
             </div>

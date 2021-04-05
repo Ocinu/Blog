@@ -1,0 +1,67 @@
+{% extends 'new_article.html' %}
+
+
+
+{% block body %}
+<!--  article  -->
+
+    <div class="container user_cont mt-4">
+      <div class="row mb-2">
+          <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative info_cont">
+            <div class="col p-4 d-flex flex-column position-static">
+
+              <h3 class="mb-1 user_name">{{ author.name }}</h3><hr>
+
+              <div class="mb-1">Login: {{ author.login }}</div>
+              <div class="mb-1">Registered: {{ author.registration_date[:11] }}</div>
+              <div class="mb-1">E-mail: {{ author.email }}</div>
+              <div class="mb-1">Phone number: {{ author.phone }}</div><br>
+
+              <p class="mb-auto">Some info about author. Please fill in this field for correct display. Editing is available on the author's page.</p>
+
+                {% if author.id == current_user.id %}
+                    <a href="#" class="btn btn-info btn-sm active col-md-2 align-self-end" role="button" aria-pressed="true">Edit text</a>
+                {% endif %}
+
+              <div class="mb-1 mt-4">Like articles: {{ likes_count }}</div>
+              <div class="mb-1">Number of articles: {{ author.post_number }}</div>
+
+                {% for post in author.articles %}
+                    <a href="{{ post.id }}" class="ml-2">{{ post.title }}</a>
+                {% endfor %}
+
+                {% if author.id == current_user.id %}
+                  <div class="row justify-content-around mt-5">
+                      <a href="/edit_user/{{ author.id }}" class="btn btn-primary btn-lg active col-md-2 " role="button" aria-pressed="true">Edit</a>
+                      <a href="#ex{{ author.id }}" rel="modal:open" class="btn btn-danger btn-lg active col-md-2 " role="button" aria-pressed="true">Delete</a>
+
+                        {#  Modal  #}
+                        <div id="ex{{ author.id }}" class="modal" height="100px">
+                            <p>Account '{{ author.login }}'  will be <bold>deleted!</bold></p>
+                            <p>continue?</p>
+                            <div class="modal_buttons">
+                                <a href="/delete_user/{{ author.id }}">Delete</a>
+                                <a href="#" rel="modal:close">Close</a>
+                            </div>
+                        </div>
+                  </div>
+                {% endif %}
+
+            </div>
+              <div class="avatar_img">
+                <img class="d-none d-lg-block" src="http://localhost:5000{{ url_for('static', filename='images/'+author.avatar) }}" width="300" height="300" alt="" />
+              </div>
+          </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+{% endblock %}

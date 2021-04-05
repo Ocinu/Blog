@@ -1,7 +1,7 @@
 @import url(style.css);
 
 body {
-    background-color: aliceblue;
+    background-color: #80808033;
 }
 
 /* Article */
@@ -66,3 +66,34 @@ form {
     align-self: center;
     color: red;
 }
+
+/*  authors page  */
+.avatar_img {
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 300px;
+    width: 300px;
+    height: 350px;
+}
+
+.info_cont {
+    background-color: aliceblue;
+}
+
+.avatar_img img {
+    height: 100%;
+    width: auto;
+}
+
+/*  author page  */
+.user_cont {
+    min-height: 82vh;
+}
+
+.user_name {
+    text-align: center;
+}
+
+

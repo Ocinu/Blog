@@ -20,7 +20,7 @@
               <p class="mb-auto" style="min-width: 777px;">{{ author.slug }}</p>
 
                 {% if author.id == current_user.id %}
-                    <a href="#" class="btn btn-info btn-sm active col-md-2 align-self-end" role="button" aria-pressed="true">Edit text</a>
+                    <a href="/edit_slug/{{ author.id }}" class="btn btn-info btn-sm active col-md-2 align-self-end" role="button" aria-pressed="true">Edit text</a>
                 {% endif %}
 
               <div class="mb-1 mt-4">Like articles: {{ likes_count }}</div>
@@ -33,6 +33,7 @@
                 {% if author.id == current_user.id %}
                   <div class="row justify-content-around mt-5">
                       <a href="/edit_user/{{ author.id }}" class="btn btn-primary btn-lg active col-md-2 " role="button" aria-pressed="true">Edit</a>
+                      <a href="/edit_password/{{ author.id }}" class="btn btn-info btn-sm active col-md-2 " role="button" aria-pressed="true">Change password</a>
                       <a href="#ex{{ author.id }}" rel="modal:open" class="btn btn-danger btn-lg active col-md-2 " role="button" aria-pressed="true">Delete</a>
 
                         {#  Modal  #}

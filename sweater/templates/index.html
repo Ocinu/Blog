@@ -6,7 +6,7 @@
     <title>{{ title }}</title>
 
     {% block head %}
-        <link rel="stylesheet" href="static/assets/css/style.css" />
+        <link rel="stylesheet" href="http://localhost:5000{{ url_for('static', filename='assets/css/style.css') }}" />
     {% endblock %}
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -62,7 +62,7 @@
                 <hr>
 
                 {% for category in categories %}
-                    <p><a href="">{{ category.category_name }}</a></p>
+                    <p><a href="/category/{{ category.id }}">{{ category.category_name }}</a></p>
                 {% endfor %}
 
             </div>
@@ -74,7 +74,7 @@
             {% for article in articles %}
                 <article>
                     <div class="img_cont">
-                        <img src="static/images/{{ article.image }}" alt="">
+                        <img src="/static/images/{{ article.image }}" alt="">
                     </div>
 
                     <div class="post_cont">
@@ -86,12 +86,12 @@
                             <hr>
                             <h4>{{ article.title }}</h4>
                             <p class="post_text">{{ article.text[:400] }}</p>
-                            <p class="post_text_footer">Category: <a href="#">{{ article.category.category_name }}</a></p>
+                            <p class="post_text_footer">Category: <a href="/category/{{ article.category.id }}">{{ article.category.category_name }}</a></p>
                         </div>
                         <div class="post_footer">
                             <div class="likes_cont">
                                 {% if article.id not in likes_count %}
-                                    <a class="img_like" href="/like/{{ article.id }}"><img src="static/icons/like.png" alt=""></a>
+                                    <a class="img_like" href="/like/{{ article.id }}"><img src="/static/icons/like.png" alt=""></a>
                                 {% endif %}
                                 <span>Likes: <span>{{ article.likes_count }}</span></span>
                                 <span>Views: {{ article.views }}</span>
@@ -99,8 +99,8 @@
 
                             {% if article.author_id == user.id %}
                                 <div class="post_edit">
-                                    <a href="#ex{{ article.id }}" rel="modal:open"><img src="static/icons/delete.svg" alt="">delete</a>
-                                    <a href="/edit/{{ article.id }}"><img src="static/icons/edit.svg" alt="">edit</a>
+                                    <a href="#ex{{ article.id }}" rel="modal:open"><img src="/static/icons/delete.svg" alt="">delete</a>
+                                    <a href="/edit/{{ article.id }}"><img src="/static/icons/edit.svg" alt="">edit</a>
                                 </div>
                             {% endif %}
 
@@ -111,7 +111,7 @@
 
                 {#  Modal  #}
                 <div id="ex{{ article.id }}" class="modal">
-                    <p>Artical '{{ article.title }}'  will be <bold>deleted!</bold></p>
+                    <p>Article '{{ article.title }}'  will be <bold>deleted!</bold></p>
                     <p>continue?</p>
                     <div class="modal_buttons">
                         <a href="/delete/{{ article.id }}">Delete</a>

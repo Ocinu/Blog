@@ -2,18 +2,11 @@ import os
 import random
 import re
 import string
-from datetime import datetime
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from sweater import db, app
 from sweater.models import Article, User, Category, Tag, Likes
-
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
-
-
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 class Errors:
@@ -46,10 +39,14 @@ class ControlDB(Errors):
 
 class ValidateImage(ControlDB):
     def __init__(self):
+        self.ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
         super().__init__()
 
+    def allowed_file(self, filename):
+        return '.' in filename and filename.rsplit('.', 1)[1].lower() in self.ALLOWED_EXTENSIONS
+
     def check_image(self, value):
-        if allowed_file(value.filename):
+        if self.allowed_file(value.filename):
             random_name = ''.join([random.choice(string.digits + string.ascii_letters) for x in range(10)])
             img_path = f'sweater/static/images/{random_name}.jpg'
             image_name = str(img_path.split('/')[-1:])[2:-2]
@@ -296,6 +293,23 @@ class Author(ValidateUserdata):
                 avatar.save(os.path.join(app.config['UPLOAD_FOLDER'], self.user.avatar))
                 self.save_to_db(self.user)
 
+        if len(self.errors) == 0:
+            self.save_to_db(self.user)
+            return True
+        return False
+
+    def edit_slug(self, slug):
+        self.user.slug = self.check_slug(slug)
+        if len(self.errors) == 0:
+            self.save_to_db(self.user)
+            return True
+        return False
+
+    def edit_password(self, new_password, new_password2):
+        if new_password != new_password2:
+            self.errors['password_error'] = 'New passwords are not equal'
+            return False
+        self.user.password = self.check_password_strength(new_password)
         if len(self.errors) == 0:
             self.save_to_db(self.user)
             return True

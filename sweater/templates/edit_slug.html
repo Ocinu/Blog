@@ -1,0 +1,23 @@
+{% extends 'edit_user.html' %}
+
+{% block label %}
+
+    {% if 'slug_error' in errors %}
+        <span>{{ errors['slug_error'] }}</span><br>
+    {% endif %}
+    <label for="slug">Shortly about myself:</label>
+    <input type="text" class="form-control" name="slug" id="slug" value="{{ edit_info.slug }}"><br>
+
+
+    {% if 'password_error' in errors %}
+        <span>{{ errors['password_error'] }}</span><br>
+    {% endif %}
+    <div class="row">
+        <div class="col-lg-6 col-md-12">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" name="password" id="password"><br>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Edit</button>
+{% endblock %}

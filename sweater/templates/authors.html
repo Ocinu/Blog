@@ -4,26 +4,26 @@
 
 {% block body %}
 <!--  article  -->
-{% for author in authors %}
-    <div class="container">
-      <div class="row mb-2">
-          <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative info_cont">
-            <div class="col p-4 d-flex flex-column position-static">
-              <strong class="d-inline-block mb-2 text-success">{{ author.login }}</strong>
-              <h3 class="mb-0">{{ author.name }}</h3>
-              <div class="mb-1 text-muted">Registered: {{ author.registration_date.strftime('%Y-%m-%d') }}</div>
-                  <div class="mb-1 text-muted">Number of articles: {{ author.post_number }}</div>
-              <p class="mb-auto" style="min-width: 777px;">{{ author.slug }}</p>
-              <a href="author/{{ author.id }}" class="stretched-link">More info</a>
-            </div>
-              <div class="avatar_img">
-                <img class="d-none d-lg-block" src="static/images/{{ author.avatar }}" width="300" height="300" alt="" />
+<div class=" user_cont">
+    {% for author in authors %}
+        <div class="container">
+          <div class="row mb-2">
+              <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative info_cont">
+                <div class="col p-4 d-flex flex-column position-static">
+                  <strong class="d-inline-block mb-2 text-success">{{ author.login }}</strong>
+                  <h3 class="mb-0">{{ author.name }}</h3>
+                  <div class="mb-1 text-muted">Registered: {{ author.registration_date.strftime('%Y-%m-%d') }}</div>
+                      <div class="mb-1 text-muted">Number of articles: {{ author.post_number }}</div>
+                  <p class="mb-auto" style="min-width: 777px;">{{ author.slug }}</p>
+                  <a href="author/{{ author.id }}" class="stretched-link">More info</a>
+                </div>
+                  <div class="avatar_img">
+                    <img class="d-none d-lg-block" src="static/images/{{ author.avatar }}" width="300" height="300" alt="" />
+                  </div>
               </div>
-          </div>
+            </div>
         </div>
-    </div>
-
-{% endfor %}
-
+    {% endfor %}
+</div>
 
 {% endblock %}

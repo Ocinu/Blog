@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="52be534e-9ef2-4398-b93c-9794a7c7429b" name="Default Changelist" comment="- редактирование данных пользователя">
+    <list default="true" id="52be534e-9ef2-4398-b93c-9794a7c7429b" name="Default Changelist" comment="- переработка классов&#10;- переработка моделей&#10;- при удалении автора удаляются все его посты">
+      <change afterPath="$PROJECT_DIR$/sweater/templates/edit_password.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sweater/templates/edit_slug.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sweater/articles.py" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/articles.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sweater/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/static/assets/css/post.css" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/static/assets/css/post.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/templates/article.html" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/templates/article.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sweater/templates/author.html" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/templates/author.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sweater/templates/authors.html" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/templates/authors.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/templates/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/templates/edit_post.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/templates/edit_user.html" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/templates/edit_user.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sweater/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/templates/new_article.html" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/templates/new_article.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/sweater/templates/register.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -203,7 +198,7 @@
       <workItem from="1617929635198" duration="22713000" />
       <workItem from="1617976874349" duration="12580000" />
       <workItem from="1618116577752" duration="4259000" />
-      <workItem from="1618184760977" duration="4341000" />
+      <workItem from="1618184760977" duration="20261000" />
     </task>
     <task id="LOCAL-00001" summary="Подключение SQLite&#10;Реализация просмотра, редактирования, удаления статей.&#10;Счетчик просмотров, автозаполнение даты">
       <created>1616954941821</created>
@@ -268,7 +263,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617590016892</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="- переработка классов&#10;- переработка моделей&#10;- при удалении автора удаляются все его посты">
+      <created>1618190009467</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1618190009467</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -308,11 +310,12 @@
     <MESSAGE value="- Верификация полученных данных при создании нового пользователя" />
     <MESSAGE value="- переработка логики лайков&#10;- добавление категорий&#10;- реализация страницы &quot;authors&quot;" />
     <MESSAGE value="- редактирование данных пользователя" />
-    <option name="LAST_COMMIT_MESSAGE" value="- редактирование данных пользователя" />
+    <MESSAGE value="- переработка классов&#10;- переработка моделей&#10;- при удалении автора удаляются все его посты" />
+    <option name="LAST_COMMIT_MESSAGE" value="- переработка классов&#10;- переработка моделей&#10;- при удалении автора удаляются все его посты" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
-      <inline-watch fileUrl="file://$PROJECT_DIR$/sweater/routes.py" line="270">
+      <inline-watch fileUrl="file://$PROJECT_DIR$/sweater/routes.py" line="289">
         <watch expression="edit_info" />
       </inline-watch>
     </watches-manager>
@@ -320,6 +323,6 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Blog$test.coverage" NAME="test Coverage Results" MODIFIED="1617935414419" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sweater" />
     <SUITE FILE_PATH="coverage/Blog$database.coverage" NAME="database Coverage Results" MODIFIED="1617337803819" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sweater" />
-    <SUITE FILE_PATH="coverage/Blog$app.coverage" NAME="app Coverage Results" MODIFIED="1618188566140" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Blog$app.coverage" NAME="app Coverage Results" MODIFIED="1618204692629" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

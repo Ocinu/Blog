@@ -11,9 +11,9 @@
             <div class="col p-4 d-flex flex-column position-static">
               <strong class="d-inline-block mb-2 text-success">{{ author.login }}</strong>
               <h3 class="mb-0">{{ author.name }}</h3>
-              <div class="mb-1 text-muted">Registered: {{ author.registration_date[:11] }}</div>
+              <div class="mb-1 text-muted">Registered: {{ author.registration_date.strftime('%Y-%m-%d') }}</div>
                   <div class="mb-1 text-muted">Number of articles: {{ author.post_number }}</div>
-              <p class="mb-auto">Some info about author. Please fill in this field for correct display. Editing is available on the author's page.</p>
+              <p class="mb-auto" style="min-width: 777px;">{{ author.slug }}</p>
               <a href="author/{{ author.id }}" class="stretched-link">More info</a>
             </div>
               <div class="avatar_img">

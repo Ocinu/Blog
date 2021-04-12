@@ -13,11 +13,11 @@
               <h3 class="mb-1 user_name">{{ author.name }}</h3><hr>
 
               <div class="mb-1">Login: {{ author.login }}</div>
-              <div class="mb-1">Registered: {{ author.registration_date[:11] }}</div>
+              <div class="mb-1">Registered: {{ author.registration_date.strftime('%Y-%m-%d') }}</div>
               <div class="mb-1">E-mail: {{ author.email }}</div>
               <div class="mb-1">Phone number: {{ author.phone }}</div><br>
 
-              <p class="mb-auto">Some info about author. Please fill in this field for correct display. Editing is available on the author's page.</p>
+              <p class="mb-auto" style="min-width: 777px;">{{ author.slug }}</p>
 
                 {% if author.id == current_user.id %}
                     <a href="#" class="btn btn-info btn-sm active col-md-2 align-self-end" role="button" aria-pressed="true">Edit text</a>
@@ -27,7 +27,7 @@
               <div class="mb-1">Number of articles: {{ author.post_number }}</div>
 
                 {% for post in author.articles %}
-                    <a href="{{ post.id }}" class="ml-2">{{ post.title }}</a>
+                    <a href="/article/{{ post.id }}" class="ml-2">{{ post.title }}</a>
                 {% endfor %}
 
                 {% if author.id == current_user.id %}
@@ -37,11 +37,15 @@
 
                         {#  Modal  #}
                         <div id="ex{{ author.id }}" class="modal" height="100px">
-                            <p>Account '{{ author.login }}'  will be <bold>deleted!</bold></p>
-                            <p>continue?</p>
-                            <div class="modal_buttons">
-                                <a href="/delete_user/{{ author.id }}">Delete</a>
-                                <a href="#" rel="modal:close">Close</a>
+                            <div class="modal_body row align-items-center">
+
+                                <p>Account '{{ author.login }}'  will be <bold>deleted!</bold></p>
+                                <p>Continue?</p>
+                                <div class="modal_buttons">
+                                    <a href="/delete_user/{{ author.id }}" class="btn btn-danger">Delete</a>
+                                    <a href="#" rel="modal:close" class="btn btn-secondary">Close</a>
+                                </div>
+
                             </div>
                         </div>
                   </div>

@@ -16,213 +16,154 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-class NewArticle:
-    def __init__(self, author_id, title, text, image, category_id, tags):
-        self.errors = ''
-        self.author_id = author_id
-        self.title = title
-        self.text = text
-        self.category_id = category_id
-        # self.tag = 'tag'
-        self.tags = tags
-        self.date = datetime.strftime(datetime.now(), '%Y-%m-%d')
-        self.image = image
-
-    @property
-    def title(self):
-        return self._title
-
-    @title.setter
-    def title(self, value: str):
-        if value != '':
-            if isinstance(value, str):
-                if len(value) < 100:
-                    self._title = value
-                else:
-                    error = 'Название слишком длинное (до 100 символов)\n'
-                    self.add_error(error)
-                    self._title = ''
-            else:
-                error = 'Название должно быть строкой\n'
-                self.add_error(error)
-                self._title = ''
-        else:
-            error = 'Поле неможет быть пустым\n'
-            self.add_error(error)
-            self._title = ''
-
-    @property
-    def text(self):
-        return self._text
-
-    @text.setter
-    def text(self, value: str):
-        if isinstance(value, str):
-            if len(value) > 130:
-                self._text = value
-            else:
-                error = 'Текст слишком короткий (от 130 символов)\n'
-                self.add_error(error)
-                self._text = ''
-        else:
-            error = 'Текст должен быть строкой\n'
-            self.add_error(error)
-            self._text = ''
-
-    @property
-    def image(self):
-        return self._image
-
-    @image.setter
-    def image(self, value):
-        if value == '':
-            error = 'Файл не выбран\n'
-            self.add_error(error)
-            self._image = ''
-        elif value and allowed_file(value.filename):
-            # filename = secure_filename(value.filename)
-            random_name = ''.join([random.choice(string.digits + string.ascii_letters) for x in range(10)])
-            img_path = f'sweater/static/images/{random_name}.jpg'
-
-            try:
-                # value.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                value.save(img_path)
-            except Exception as e:
-                print(e)
-
-            self._image = str(img_path.split('/')[-1:])[2:-2]
-            # self._image = filename
-
-        else:
-            error = 'Неверное расширение файла\n'
-            self.add_error(error)
-            self._image = ''
-
-    def add_error(self, error):
-        self.errors = self.errors + error
-        return self.errors
-
-
-class Articles:
+class Errors:
     def __init__(self):
-        self.articles = Article.query.all()
+        self.errors = {}
 
-    @staticmethod
-    def save_db(item):
+
+class ControlDB(Errors):
+    def __init__(self):
+        super().__init__()
+
+    def save_to_db(self, item):
         try:
             db.session.add(item)
             db.session.commit()
+            return True
         except:
-            return 'Ошибка записи в базу данных'
+            self.errors['db_error'] = 'Database write error'
+            return False
 
-    def add_new_post(self, author_id, title, text, image, category_id, tags=1):
-        article = NewArticle(author_id, title, text, image, category_id, tags)
-        # category = Category()
-
-        if len(article.errors) > 0:
-            return str(article.errors)
-        else:
-            user = User.query.get(1)
-            post = Article.query.get(2)
-
-            item = Article(
-                # author=article.author,
-                author_id=article.author_id,
-                title=article.title,
-                text=article.text,
-                category_id=article.category_id,
-                # tag=tag.tag_name,
-                created_on=article.date,
-                image=article.image
-            )
-            post = Article.query.get(2)
-
-            self.save_db(item)
-            self.articles = Article.query.all()
-
-            tag = Tag.query.all()
-            # db.session.add(tag)
-            # db.session.commit()
-            return self.articles
-
-    def update_articles(self):
-        self.articles = Article.query.all()
-        return self.articles
-
-    def delete_article(self, article_id):
+    def delete_from_db(self, item):
         try:
-            item = Article.query.get(article_id)
-            item.author.post_number -= 1
-            os.remove(os.path.join(app.config['UPLOAD_FOLDER'], item.image))
             db.session.delete(item)
             db.session.commit()
-            self.articles = Article.query.all()
-            return self.articles
+            return True
         except:
-            return 'Запись не найдена'
-
-    def edit_article(self, author, title, text, image, article_id):
-        # валидация полученных данных перед внесением изменений
-        article = NewArticle(author, title, text, image)
-
-        if len(article.errors) > 0:
-            return str(article.errors)
-        else:
-            item = Article.query.get(article_id)
-            item.author = article.author  # строка оставлена для администрирования
-            item.title = article.title
-            item.text = article.text
-            # удаление старого файла
-            os.remove(os.path.join(app.config['UPLOAD_FOLDER'], item.image))
-            item.image = article.image
-            self.save_db(item)
-            self.articles = Article.query.all()
-            return self.articles
-
-    def update_views_count(self, article_id: int):
-        item = Article.query.get(article_id)
-        item.views += 1
-        self.save_db(item)
-        return item
-
-    def update_likes_count(self, article_id: int, user_id: int):
-        like = Likes(post_id=article_id, user_id=user_id)
-        self.save_db(like)
-        item = Article.query.get(article_id)
-        item.likes_count += 1
-        self.save_db(item)
-        return item
-
-    @staticmethod
-    def get_article(article_id: int):
-        item = Article.query.get(article_id)
-        return item
-
-    def sort_by_date(self):
-        self.articles = Article.query.order_by(Article.created_on).all()
-        return self.articles
-
-    def sort_by_author(self):
-        self.articles = Article.query.order_by(Article.author_id).all()
-        return self.articles
+            self.errors['db_error'] = 'Database write error'
+            return False
 
 
-class NewUser:
-    def __init__(self, name, email, phone, avatar, login, password, password2):
-        self.errors = ''
+class ValidateImage(ControlDB):
+    def __init__(self):
+        super().__init__()
+
+    def check_image(self, value):
+        if allowed_file(value.filename):
+            random_name = ''.join([random.choice(string.digits + string.ascii_letters) for x in range(10)])
+            img_path = f'sweater/static/images/{random_name}.jpg'
+            image_name = str(img_path.split('/')[-1:])[2:-2]
+            return image_name
+        self.errors['image_error'] = "Допустимые расширения файла: 'png', 'jpg', 'jpeg', 'gif' \n"
+        return ''
+
+
+class ValidateUserdata(ValidateImage):
+    def __init__(self):
+        super().__init__()
+
+    def check_login(self, value: str):
+        value = value.strip()
+        if 4 < len(value) < 30:
+            return value
+        self.errors['login_error'] = 'От 5 до 30 символов'
+        return value
+
+    def check_name(self, value: str):
+        if isinstance(value, str):
+            #  убираем лишние пробелы
+            value = ' '.join([x for x in value.split(' ') if x != ''])
+            if 1 <= len(value.split(' ')) <= 3:
+                return value
+            self.errors['name_error'] = 'В имени неможет быть больше 3-х слов и меньше 1'
+            return value
+        self.errors['name_error'] = 'This is not a string'
+        return value
+
+    def check_email(self, value: str):
+        if re.search(r'(\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,6})', str(value)):
+            return value
+        self.errors['mail_error'] = 'Введите корректный электронный адрес'
+        return ''
+
+    def check_slug(self, value: str):
+        #  убираем лишние пробелы
+        value = ' '.join([x for x in value.split(' ') if x != ''])
+        if isinstance(value, str):
+            if 10 <= len(value) <= 200:
+                return value
+            self.errors['slug_error'] = 'From 10 to 200 characters'
+            return value
+        self.errors['slug_error'] = 'This is not a string'
+        return value
+
+    def check_phone(self, value):
+        if re.search(r'^\+\d{12}$', str(value)):
+            return value
+        self.errors['phone_error'] = 'Введите номер телефона в формате +380999999999\n'
+        return value
+
+    def check_password_strength(self, value: str):
+        if re.search(r'((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15})', str(value)):
+            hash_pwd = generate_password_hash(value)
+            return hash_pwd
+        self.errors['password_error'] = ('Пароль должен содержать от 8 до 15 символов '
+                                         'должна быть минимум одна заглавная буква '
+                                         'должна быть минимум одна прописная буква '
+                                         'должна быть минимум одна цыфра')
+        return ''
+
+
+class ValidateArticleData(ValidateImage):
+    def __init__(self):
+        super().__init__()
+
+    def check_title(self, value: str):
+        if value != '':
+            if isinstance(value, str):
+                if len(value) < 100:
+                    return value
+                self.errors['title_error'] = '5 to 30 characters'
+                return value
+            self.errors['title_error'] = 'Title must be a string'
+            return value
+        self.errors['title_error'] = 'The field cannot be empty'
+        return value
+
+    def check_text(self, value: str):
+        if isinstance(value, str):
+            if len(value) > 130:
+                return value
+            self.errors['text_error'] = 'The text is too short (from 130 characters)'
+            return value
+        self.errors['text_error'] = 'Title must be a string'
+        return value
+
+    def check_tags(self, value: str):
+        if isinstance(value, str):
+            # убираем лишние пробелы
+            value = [x for x in value.split(' ') if x != '']
+            # убираем запятые в конце тэгов
+            for e, i in enumerate(value):
+                if i[-1] == ',':
+                    value[e] = i[:-1]
+            return value
+        self.errors['tags_error'] = 'Must be a string'
+        return value
+
+
+class NewUser(ValidateUserdata):
+    def __init__(self, name, email, slug, phone, avatar, login, password, password2):
+        super().__init__()
         self.name = name
         self.email = email
+        self.slug = slug
         self.phone = phone
         self.avatar = avatar
-        self.registration_date = datetime.strftime(datetime.now(), '%Y-%m-%d')
         self.login = login
         self.password = password
         self.password2 = password2
         self.check_password()
-
-    def add_error(self, error):
-        self.errors = self.errors + error
-        return self.errors
 
     @property
     def name(self):
@@ -230,19 +171,8 @@ class NewUser:
 
     @name.setter
     def name(self, value: str):
-        if isinstance(value, str):
-            #  убираем лишние пробелы
-            value = ' '.join([x for x in value.split(' ') if x != ''])
-            if len(value.split(' ')) <= 3:
-                self._name = value
-            else:
-                error = 'В имени неможет быть больше 3-х слов\n'
-                self.add_error(error)
-                self._text = ''
-        else:
-            error = 'Имя должно быть строкой\n'
-            self.add_error(error)
-            self._text = ''
+        value = self.check_name(value)
+        self._name = value
 
     @property
     def email(self):
@@ -253,16 +183,19 @@ class NewUser:
         #  проверка на уникальность email
         exist_email = User.query.filter_by(email=value).all()
         if exist_email:
-            error = 'Такой электронный адрес уже зарегистрирован\n'
-            self.add_error(error)
-            self._email = ''
+            self.errors['mail_error'] = 'Такой электронный адрес уже зарегистрирован\n'
+            self._email = value
         else:
-            if re.search(r'(\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,6})', str(value)):
-                self._email = value
-            else:
-                error = 'Введите корректный электронный адрес\n'
-                self.add_error(error)
-                self._email = ''
+            value = self.check_email(value)
+            self._email = value
+
+    @property
+    def slug(self):
+        return self._slug
+
+    @slug.setter
+    def slug(self, value: str):
+        self._slug = self.check_slug(value)
 
     @property
     def phone(self):
@@ -270,12 +203,8 @@ class NewUser:
 
     @phone.setter
     def phone(self, value):
-        if re.search(r'^\+\d{12}$', str(value)):
-            self._phone = value
-        else:
-            error = 'Введите номер телефона в формате +380999999999\n'
-            self.add_error(error)
-            self._phone = ''
+        value = self.check_phone(value)
+        self._phone = value
 
     @property
     def avatar(self):
@@ -283,15 +212,7 @@ class NewUser:
 
     @avatar.setter
     def avatar(self, value):
-        if allowed_file(value.filename):
-            random_name = ''.join([random.choice(string.digits + string.ascii_letters) for x in range(10)])
-            img_path = f'sweater/static/images/{random_name}.jpg'
-            # value.save(img_path)
-            self._avatar = str(img_path.split('/')[-1:])[2:-2]
-        else:
-            error = "Допустимые расширения файла: 'png', 'jpg', 'jpeg', 'gif' \n"
-            self.add_error(error)
-            self._avatar = ''
+        self._avatar = self.check_image(value)
 
     @property
     def login(self):
@@ -299,20 +220,14 @@ class NewUser:
 
     @login.setter
     def login(self, value: str):
-        value = value.strip()
         #  проверка на уникальность логина
         exist_user = User.query.filter_by(login=value).all()
         if exist_user:
-            error = 'Пользователь с таким логином уже зарегестрирован\n'
-            self.add_error(error)
+            self.errors['login_error'] = 'Пользователь с таким логином уже зарегестрирован'
             self._login = ''
         else:
-            if 4 < len(value) < 30:
-                self._login = value
-            else:
-                error = 'От 5 до 30 символов\n'
-                self.add_error(error)
-                self._login = ''
+            value = self.check_login(value)
+            self._login = value
 
     @property
     def password(self):
@@ -320,49 +235,34 @@ class NewUser:
 
     @password.setter
     def password(self, value):
-        if re.search(r'((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15})', str(value)):
-            hash_pwd = generate_password_hash(value)
-            self._password = hash_pwd
-        else:
-            error = ('Пароль должен содержать от 8 до 15 символов'
-                     'должна быть минимум одна заглавная буква'
-                     'должна быть минимум одна прописная буква'
-                     'должна быть минимум одна цыфра')
-            self.add_error(error)
-            self._password = ''
+        value = self.check_password_strength(value)
+        self._password = value
 
     def check_password(self):
         if check_password_hash(self.password, self.password2):
             return True
-        else:
-            error = 'Пароли не совпадают\n'
-            self.add_error(error)
-            return False
+        self.errors['password_error'] = 'Passwords not equal'
+        return False
 
     def add_new_user(self, avatar):
-        if len(self.errors) > 0:
-            return self.errors
         new_user = User()
         new_user.name = self.name
+        new_user.slug = self.slug
         new_user.email = self.email
         new_user.phone = self.phone
         new_user.avatar = self.avatar
-        new_user.registration_date = self.registration_date
         new_user.login = self.login
         new_user.password = self.password
 
-        try:
-            db.session.add(new_user)
-            db.session.commit()
-        except Exception as e:
-            print(e)
-        avatar.save(os.path.join(app.config['UPLOAD_FOLDER'], self.avatar))
+        if len(self.errors) == 0:
+            if self.save_to_db(new_user):
+                avatar.save(os.path.join(app.config['UPLOAD_FOLDER'], self.avatar))
         return True
 
 
-class Author:
+class Author(ValidateUserdata):
     def __init__(self, user_id: int):
-        self.errors = ''
+        super().__init__()
         self.user = user_id
 
     @property
@@ -373,90 +273,162 @@ class Author:
     def user(self, value: int):
         self._user_id = User.query.get(value)
 
-    def add_error(self, error):
-        self.errors = self.errors + error
-        return self.errors
-
     def check_password(self, password):
         if check_password_hash(self.user.password, password):
             return True
         else:
-            error = 'Password incorrect\n'
-            self.add_error(error)
+            self.errors['password_error'] = 'Password incorrect'
             return False
 
-    def save_db(self):
-        db.session.add(self.user)
-        db.session.commit()
+    def edit_info(self, login, name, slug, email, phone, avatar):
+        self.user.login = self.check_login(login)
+        self.user.name = self.check_name(name)
+        self.user.slug = self.check_slug(slug)
+        self.user.email = self.check_email(email)
+        self.user.phone = self.check_phone(phone)
 
-    def edit_info(self, login, name, email, phone):
-        self.edit_login(login)
-        self.edit_name(name)
-        self.edit_email(email)
-        self.edit_phone(phone)
-        return self.user
+        if avatar.filename != '':
+            temp = self.user.avatar
+            self.user.avatar = self.check_image(avatar)
+            # если нет ошибок, удаляем старую картинку и сохраняем новую
+            if len(self.errors) == 0:
+                os.remove(os.path.join(app.config['UPLOAD_FOLDER'], temp))
+                avatar.save(os.path.join(app.config['UPLOAD_FOLDER'], self.user.avatar))
+                self.save_to_db(self.user)
 
-    def edit_login(self, value):
-        value = value.strip()
-        #  проверка на уникальность логина
-        exist_user = User.query.filter_by(login=value).all()
-        if exist_user and self.user.login != value:
-            error = 'Пользователь с таким логином уже зарегестрирован\n'
-            self.add_error(error)
-            self.user.login = value
-            return self.user.name
-        else:
-            if 4 < len(value) < 30:
-                self.user.login = value
-                return self.user.name
-            else:
-                error = 'От 5 до 30 символов\n'
-                self.add_error(error)
-                self.user.login = value
-                return self.user.name
+        if len(self.errors) == 0:
+            self.save_to_db(self.user)
+            return True
+        return False
 
-    def edit_name(self, value):
-        if isinstance(value, str):
-            #  убираем лишние пробелы
-            value = ' '.join([x for x in value.split(' ') if x != ''])
-            if len(value.split(' ')) <= 3:
-                self.user.name = value
-                return self.user.name
-            else:
-                error = 'В имени неможет быть больше 3-х слов\n'
-                self.add_error(error)
-                self.user.name = value
-                return self.user.name
-        else:
-            error = 'Имя должно быть строкой\n'
-            self.add_error(error)
-            self.user.name = value
-            return self.user.name
+    def delete_user(self):
+        # удаление аватарки
+        os.remove(os.path.join(app.config['UPLOAD_FOLDER'], self.user.avatar))
+        # удаление всех постов автора
+        for post in self.user.articles:
+            Post(post.id).delete_post()
+        self.delete_from_db(self.user)
 
-    def edit_email(self, value):
-        #  проверка на уникальность email
-        exist_email = User.query.filter_by(email=value).all()
-        if exist_email and self.user.email != value:
-            error = 'Такой электронный адрес уже зарегистрирован\n'
-            self.add_error(error)
-            self.user.email = value
-            return self.user.email
-        else:
-            if re.search(r'(\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,6})', str(value)):
-                self.user.email = value
-                return self.user.email
-            else:
-                error = 'Введите корректный электронный адрес\n'
-                self.add_error(error)
-                self.user.email = value
-                return self.user.email
 
-    def edit_phone(self, value):
-        if re.search(r'^\+\d{12}$', str(value)):
-            self.user.phone = value
-            return self.user.phone
-        else:
-            error = 'Введите номер телефона в формате +380999999999\n'
-            self.add_error(error)
-            self.user.phone = value
-            return self.user.phone
+class NewArticle(ValidateArticleData):
+    def __init__(self, author_id: int, category_id: int, title: str, text: str, image):
+        super().__init__()
+        self.author_id = author_id
+        self.category_id = category_id
+        self.title = title
+        self.text = text
+        self.image = image
+
+    @property
+    def title(self):
+        return self._title
+
+    @title.setter
+    def title(self, value: str):
+        self._title = self.check_title(value)
+
+    @property
+    def text(self):
+        return self._text
+
+    @text.setter
+    def text(self, value: str):
+        self._text = self.check_text(value)
+
+    @property
+    def image(self):
+        return self._image
+
+    @image.setter
+    def image(self, value):
+        self._image = self.check_image(value)
+
+    def add_new_article(self, image):
+        new_article = Article()
+        new_article.author_id = self.author_id
+        new_article.category_id = self.category_id
+        new_article.title = self.title
+        new_article.text = self.text
+        new_article.image = self.image
+
+        if len(self.errors) == 0:
+            new_article_author = Author(self.author_id).user
+            new_article_author.post_number += 1
+            self.save_to_db(new_article_author)
+            if self.save_to_db(new_article):
+                image.save(os.path.join(app.config['UPLOAD_FOLDER'], self.image))
+        return True
+    # @TODO: add tags
+    # def add_tags(self, new_article_id):
+    #     for i in self.tags:
+    #         new_tag = NewTag(i, new_article_id)
+    #         new_tag.add_new_tag()
+
+
+class Post(ValidateArticleData):
+    def __init__(self, post_id: int):
+        super().__init__()
+        self.post = Article.query.get(post_id)
+
+    def delete_post(self):
+        self.post.author.post_number -= 1
+        os.remove(os.path.join(app.config['UPLOAD_FOLDER'], self.post.image))
+        self.delete_from_db(self.post)
+        return True
+
+    def edit_post(self, title, text, category_id, image):
+        self.post.title = self.check_title(title)
+        self.post.text = self.check_text(text)
+        self.post.category_id = category_id
+        # если поле пустое, оставляем старую картинку
+        if image.filename != '':
+            temp = self.post.image
+            self.post.image = self.check_image(image)
+            # если нет ошибок, удаляем старую картинку и сохраняем новую
+            if len(self.errors) == 0:
+                os.remove(os.path.join(app.config['UPLOAD_FOLDER'], temp))
+                image.save(os.path.join(app.config['UPLOAD_FOLDER'], self.post.image))
+                self.save_to_db(self.post)
+
+        if len(self.errors) == 0:
+            self.save_to_db(self.post)
+            return True
+        return False
+
+    def update_views_count(self):
+        self.post.views += 1
+        self.save_to_db(self.post)
+        return True
+
+    def update_likes_count(self, post_id: int, user_id: int):
+        like = Likes(post_id=post_id, user_id=user_id)
+        self.save_to_db(like)
+        self.post.likes_count += 1
+        self.save_to_db(self.post)
+        return True
+
+
+class NewTag(ControlDB):
+    def __init__(self, tag_name, article_id):
+        super().__init__()
+        self.new_tag = Tag()
+        self.tag_name = tag_name
+        self.article_id = article_id
+
+    def add_new_tag(self):
+        self.new_tag.tag_name = self.tag_name
+        self.new_tag.article_id = self.article_id
+        self.save_to_db(self.new_tag)
+
+
+class Articles:
+    def __init__(self):
+        self.articles = Article.query.all()
+
+    def sort_by_date(self):
+        self.articles = Article.query.order_by(Article.created_on).all()
+        return self.articles
+
+    def sort_by_author(self):
+        self.articles = Article.query.order_by(Article.author_id).all()
+        return self.articles

@@ -81,7 +81,7 @@
                         <div class="post_body">
                             <div class="post_header">
                                 <span>{{ article.author.name }}</span>
-                                <span>Date: {{ article.created_on }}</span>
+                                <span>Date: {{ article.created_on.strftime('%Y-%m-%d') }}</span>
                             </div>
                             <hr>
                             <h4>{{ article.title }}</h4>

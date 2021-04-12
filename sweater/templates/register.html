@@ -16,27 +16,75 @@
         {% endwith %}
 
             {% block label %}
+
+                {% if 'login_error' in errors %}
+                    <span>{{ errors['login_error'] }}</span><br>
+                {% endif %}
                 <label for="login">Login:</label>
-                <input type="text" class="form-control" name="login" id="login" placeholder="Login"><br>
+                {% if check %}
+                    <input type="text" class="form-control" name="login" id="login" placeholder="Login"><br>
+                    {% else %}
+                    <input type="text" class="form-control" name="login" id="login" value="{{ edit_info.login }}"><br>
+                {% endif %}
 
+                {% if 'name_error' in errors %}
+                    <span>{{ errors['name_error'] }}</span><br>
+                {% endif %}
                 <label for="name">Name:</label>
-                <input type="text" class="form-control" name="name" id="name" placeholder="name"><br>
+                {% if check %}
+                    <input type="text" class="form-control" name="name" id="name" placeholder="name"><br>
+                    {% else %}
+                    <input type="text" class="form-control" name="name" id="name" value="{{ edit_info.name }}"><br>
+                {% endif %}
 
+                {% if 'slug_error' in errors %}
+                    <span>{{ errors['slug_error'] }}</span><br>
+                {% endif %}
+                <label for="slug">Shortly about myself:</label>
+                {% if check %}
+                    <input type="text" class="form-control" name="slug" id="slug" placeholder="about"><br>
+                    {% else %}
+                    <input type="text" class="form-control" name="slug" id="slug" value="{{ edit_info.slug }}"><br>
+                {% endif %}
 
                 <div class="row">
                     <div class="col-lg-6 col-md-12">
+
+                        {% if 'mail_error' in errors %}
+                            <span>{{ errors['mail_error'] }}</span><br>
+                        {% endif %}
                         <label for="email">E-mail:</label>
-                        <input type="email" class="form-control" name="email" id="email" placeholder="email"><br>
+                        {% if check %}
+                            <input type="email" class="form-control" name="email" id="email" placeholder="email"><br>
+                        {% else %}
+                            <input type="email" class="form-control" name="email" id="email" value="{{ edit_info.email }}"><br>
+                        {% endif %}
+
                     </div>
                     <div class="col-lg-6 col-md-12">
+
+                        {% if 'phone_error' in errors %}
+                            <span>{{ errors['phone_error'] }}</span><br>
+                        {% endif %}
                         <label for="phone">Phone:</label>
-                        <input type="tel" class="form-control" name="phone" id="phone" placeholder="phone"><br>
+                        {% if check %}
+                            <input type="tel" class="form-control" name="phone" id="phone" placeholder="phone"><br>
+                        {% else %}
+                            <input type="tel" class="form-control" name="phone" id="phone" value={{ edit_info.phone }}><br>
+                        {% endif %}
+
                     </div>
                 </div>
 
+                {% if 'image_error' in errors %}
+                    <span>{{ errors['image_error'] }}</span><br>
+                {% endif %}
                 <label for="avatar">Avatar:</label><br>
                 <input type="file" name="avatar"><br><br>
 
+                {% if 'password_error' in errors %}
+                        <span>{{ errors['password_error'] }}</span><br>
+                    {% endif %}
                 <div class="row">
                     <div class="col-lg-6 col-md-12">
                         <label for="password">Password:</label>

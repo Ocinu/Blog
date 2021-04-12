@@ -7,12 +7,12 @@
 {% block body %}
 <!--  article  -->
     <article>
-        <p>{{ article.author }}</p><hr>
+        <p>{{ article.author.name }}</p><hr>
         <h4>{{ article.title }}</h4>
         <p class="article_body">{{ article.text }}</p>
         <div class="article_footer">
             <span>Views: {{ article.views }}</span>
-            <span>Likes: {{ article.likes }}</span>
+            <span>Likes: {{ article.likes_count }}</span>
         </div>
     </article>
 

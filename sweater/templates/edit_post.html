@@ -1,10 +1,4 @@
-{% extends 'index.html' %}
-
-{% block head %}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <link rel="stylesheet" href="http://localhost:5000{{ url_for('static', filename='assets/css/post.css') }}" />
-{% endblock %}
-
+{% extends 'new_article.html' %}
 
 {% block body %}
     <div class="form_container">
@@ -25,7 +19,7 @@
                 <label for="exampleFormControlSelect1">Select category:</label>
                 <select name="category_id" class="form-control" id="exampleFormControlSelect1">
                 {% for category in categories %}
-                  <option value="{{ category.id }}">{{ category.category_name }}</option>
+                  <option value="{{ category.id }}" {% if category.id == edit_info.category.id %}selected{% endif %}>{{ category.category_name }}</option>
                 {% endfor %}
                 </select>
                 <br>
@@ -34,7 +28,7 @@
                     <span class="error_message">{{ errors['image_error'] }}</span><br>
                 {% endif %}
                 <label for="article_image">Article image:</label><br>
-                <input type="file" name="article_image"><br><br>
+                <input type="file" name="article_image" value="{{ edit_info.image }}"><br><br>
 
                 {% if 'text_error' in errors %}
                     <span class="error_message">{{ errors['text_error'] }}</span><br>
@@ -46,13 +40,8 @@
                     <textarea class="form-control" rows="5" name="text" id="text">{{ edit_info.text }}</textarea><br>
                 {% endif %}
 
-                <button type="submit" class="btn btn-primary">Add post</button>
+                <button type="submit" class="btn btn-primary">Edit post</button>
             {% endblock %}
         </form>
     </div>
-{% endblock %}
-
-{% block scripts %}
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 {% endblock %}

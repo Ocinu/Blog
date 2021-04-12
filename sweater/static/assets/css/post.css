@@ -38,6 +38,10 @@ article h4 {
     padding-top: 100px;
 }
 
+.error_message {
+    color: red;
+}
+
 form {
     max-width: 1000px;
     position: relative;
@@ -92,8 +96,23 @@ form {
     min-height: 82vh;
 }
 
+.modal_body {
+    display: flex;
+    height: 100%;
+    margin: auto;
+    flex-direction: column;
+    padding-top: 50%;
+}
+
+.modal_body div {
+    width: 100%
+}
+
 .user_name {
     text-align: center;
 }
 
-
+/*  register page  */
+.login_container span {
+    color: red;
+}

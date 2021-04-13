@@ -262,14 +262,14 @@ def authors():
 def user_info(user_id):
     # исключаем ошибку, если база лайков еще пустая
     try:
-        likes_count = len(Likes.query.filter_by(user_id=user_id).all())
+        likes = len(Likes.query.filter_by(user_id=user_id).all())
     except:
-        likes_count = 0
+        likes = 0
     author = User.query.get_or_404(user_id)
     return render_template('author.html',
                            title='ItStep Blog: ' + author.name,
                            user=current_user,
-                           likes_count=likes_count,
+                           likes_count=likes,
                            author=author)
 
 

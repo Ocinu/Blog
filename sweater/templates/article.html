@@ -6,67 +6,53 @@
 
 {% block body %}
 <!--  article  -->
-    <article>
-        <p>{{ article.author.name }}</p><hr>
-        <h4>{{ article.title }}</h4>
-        <p class="article_body">{{ article.text }}</p>
+    <article class="full_text">
+        <div class="article_header">
+            <span>Category: <a href="/category/{{ article.category.id }}">{{ article.category.category_name }}</a></span>
+            <span>Date: {{ article.created_on.strftime('%Y-%m-%d') }}</span>
+        </div><hr><br>
+        <p><a href="/author/{{ article.author.id }}">{{ article.author.name }}</a></p>
+        <h2>{{ article.title }}</h2>
+
+        <p class="article_body">
+            <img src="/static/images/{{ article.image }}" alt="" style="width: 400px; height: 400px; float: left; margin: 10px 20px 0 0">
+            {{ article.text }}
+        </p>
+
         <div class="article_footer">
             <span>Views: {{ article.views }}</span>
+
+            {#  share buttons  #}
+            <div class="share-btns">
+    <a
+        class="facebook"
+        rel="nofollow"
+        href="javascript: void(0)"
+        onClick="window.open('https://www.facebook.com/sharer.php?u=АДРЕС_СТРАНИЦЫ','sharer','status=0,toolbar=0,width=650,height=500');"
+        title="Поделиться в Facebook"><img src="/static/icons/facebook.png" alt="" style="width: 40px; height: 40px"></a>
+
+
+    <a
+        class="telegram"
+        rel="nofollow"
+        href="javascript: void(0)"
+        onClick="window.open('https://telegram.me/share/url?url=АДРЕС_СТРАНИЦЫ','sharer','status=0,toolbar=0,width=650,height=500');"
+        title="Поделиться в Телеграм"><img src="/static/icons/telegram.png" alt="" style="width: 40px; height: 40px"></a>
+
+    <a
+        class="twitter"
+        rel="nofollow"
+        href="javascript: void(0)"
+        onClick="window.open('https://twitter.com/intent/tweet?text=ТАЙТЛ_СТРАНИЦЫ. ОПИСАНИЕ. СССЫЛКА','sharer','status=0,toolbar=0,width=650,height=500');"
+        title="Твитнуть"><img src="/static/icons/twitter.png" alt="" style="width: 40px; height: 40px"></a>
+
+</div>
+
             <span>Likes: {{ article.likes_count }}</span>
         </div>
     </article>
 
-{#  share buttons  #}
-    <div class="share-btns">
-    <a
-        class="facebook"
-        rel="nofollow"
-        href="javascript: void(0)"
-        onClick="window.open('https://www.facebook.com/sharer.php?u=АДРЕС_СТРАНИЦЫ','sharer','status=0,toolbar=0,width=650,height=500');"
-        title="Поделиться в Facebook"></a>
 
-
-    <a
-        class="telegram"
-        rel="nofollow"
-        href="javascript: void(0)"
-        onClick="window.open('https://telegram.me/share/url?url=АДРЕС_СТРАНИЦЫ','sharer','status=0,toolbar=0,width=650,height=500');"
-        title="Поделиться в Телеграм"></a>
-
-    <a
-        class="twitter"
-        rel="nofollow"
-        href="javascript: void(0)"
-        onClick="window.open('https://twitter.com/intent/tweet?text=ТАЙТЛ_СТРАНИЦЫ. ОПИСАНИЕ. СССЫЛКА','sharer','status=0,toolbar=0,width=650,height=500');"
-        title="Твитнуть"></a>
-
-</div>
 
 {% endblock %}
-
-<div class="share-btns">
-    <a
-        class="facebook"
-        rel="nofollow"
-        href="javascript: void(0)"
-        onClick="window.open('https://www.facebook.com/sharer.php?u=АДРЕС_СТРАНИЦЫ','sharer','status=0,toolbar=0,width=650,height=500');"
-        title="Поделиться в Facebook"></a>
-
-
-    <a
-        class="telegram"
-        rel="nofollow"
-        href="javascript: void(0)"
-        onClick="window.open('https://telegram.me/share/url?url=АДРЕС_СТРАНИЦЫ','sharer','status=0,toolbar=0,width=650,height=500');"
-        title="Поделиться в Телеграм"></a>
-
-    <a
-        class="twitter"
-        rel="nofollow"
-        href="javascript: void(0)"
-        onClick="window.open('https://twitter.com/intent/tweet?text=ТАЙТЛ_СТРАНИЦЫ. ОПИСАНИЕ. СССЫЛКА','sharer','status=0,toolbar=0,width=650,height=500');"
-        title="Твитнуть"></a>
-
-</div>
-
 

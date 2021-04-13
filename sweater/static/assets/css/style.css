@@ -332,21 +332,13 @@ footer {
 }
 
 .share-btns a.facebook {
-    background: url("../img/share-btns.png") no-repeat left top;
-}
-
-.share-btns a.ok {
-    background: url("../img/share-btns.png") no-repeat -126px top;
+    background: lightblue url("../../icons/share-btns.png") no-repeat left top;
 }
 
 .share-btns a.twitter {
-    background: url("../img/share-btns.png") no-repeat -42px top;
+    background: url("../../icons/share-btns.png") no-repeat -42px top;
 }
 
-
-
-
-
 .share-btns a.telegram {
-    background: url("../img/share-btns.png") no-repeat -672px top;
+    background: url("../../icons/share-btns.png") no-repeat -672px top;
 }

@@ -5,8 +5,9 @@ body {
 }
 
 /* Article */
-article{
+.full_text {
     min-height: 80vh;
+    height: auto;
     max-width: 1000px;
     display: flex;
     flex-direction: column;
@@ -15,15 +16,26 @@ article{
     left: 50%;
     transform: translateX(-50%);
     padding: 50px;
+
+    margin: 20px;
+    position: relative;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: white;
 }
 
-article h4 {
+article h2 {
     margin-top: 30px;
 }
 
+.article_header {
+    display: flex;
+    justify-content: space-between;
+}
+
 .article_body {
-    text-align: left;
+    text-align: justify;
     text-indent: 30px;
+    margin: 20px;
 }
 
 .article_footer {

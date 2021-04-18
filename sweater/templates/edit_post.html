@@ -24,6 +24,16 @@
                 </select>
                 <br>
 
+                <p>Tags:</p>
+                {% for tag in edit_info.tags %}
+                    <div>
+                        <span>#{{ tag.tag_name }}</span>
+                        <a href=""><img src="/static/icons/edit.svg" alt="" style="width:25px; height:25px"></a>
+                        <a href=""><img src="/static/icons/delete.svg" alt="" style="width:25px; height:25px"></a>
+                    </div><br>
+
+                {% endfor %}
+
                 {% if 'image_error' in errors %}
                     <span class="error_message">{{ errors['image_error'] }}</span><br>
                 {% endif %}

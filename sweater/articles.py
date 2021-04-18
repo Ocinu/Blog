@@ -325,11 +325,12 @@ class Author(ValidateUserdata):
 
 
 class NewArticle(ValidateArticleData):
-    def __init__(self, author_id: int, category_id: int, title: str, text: str, image):
+    def __init__(self, author_id: int, category_id: int, title: str, tags: str, text: str, image):
         super().__init__()
         self.author_id = author_id
         self.category_id = category_id
         self.title = title
+        self.tags = tags
         self.text = text
         self.image = image
 
@@ -340,6 +341,14 @@ class NewArticle(ValidateArticleData):
     @title.setter
     def title(self, value: str):
         self._title = self.check_title(value)
+
+    @property
+    def tags(self):
+        return self._tags
+
+    @tags.setter
+    def tags(self, value: str):
+        self._tags = self.check_tags(value)
 
     @property
     def text(self):
@@ -365,6 +374,9 @@ class NewArticle(ValidateArticleData):
         new_article.text = self.text
         new_article.image = self.image
 
+        self.save_new_tags()
+        new_article.tags = self.add_tags(new_article)
+
         if len(self.errors) == 0:
             new_article_author = Author(self.author_id).user
             new_article_author.post_number += 1
@@ -372,11 +384,20 @@ class NewArticle(ValidateArticleData):
             if self.save_to_db(new_article):
                 image.save(os.path.join(app.config['UPLOAD_FOLDER'], self.image))
         return True
-    # @TODO: add tags
-    # def add_tags(self, new_article_id):
-    #     for i in self.tags:
-    #         new_tag = NewTag(i, new_article_id)
-    #         new_tag.add_new_tag()
+
+    def save_new_tags(self):
+        all_tags = Tag.query.all()
+        all_tags = [i.tag_name for i in all_tags]
+        for i in self.tags:
+            if i not in all_tags:
+                new_tag = NewTag(i)
+                new_tag.save_tag()
+
+    def add_tags(self, new_article):
+        for i in self.tags:
+            tag = Tag.query.filter_by(tag_name=i).first()
+            new_article.tags.append(tag)
+        return new_article.tags
 
 
 class Post(ValidateArticleData):
@@ -422,17 +443,30 @@ class Post(ValidateArticleData):
         return True
 
 
-class NewTag(ControlDB):
-    def __init__(self, tag_name, article_id):
+class NewTag(ValidateArticleData):
+    def __init__(self, tag_name):
         super().__init__()
-        self.new_tag = Tag()
         self.tag_name = tag_name
-        self.article_id = article_id
 
-    def add_new_tag(self):
-        self.new_tag.tag_name = self.tag_name
-        self.new_tag.article_id = self.article_id
-        self.save_to_db(self.new_tag)
+    @property
+    def tag_name(self):
+        return self._tag_name
+
+    @tag_name.setter
+    def tag_name(self, value: str):
+        self._tag_name = value
+
+    def save_tag(self):
+        new_tag = Tag()
+        new_tag.tag_name = self.tag_name
+        if self.save_to_db(new_tag):
+            return True
+        return False
+
+
+class TagController:
+    def __init__(self, tag_id):
+        self.tag = Tag.query.get(tag_id)
 
 
 class Articles:

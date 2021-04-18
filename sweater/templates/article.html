@@ -19,6 +19,14 @@
             {{ article.text }}
         </p>
 
+        <div style="margin: 15px 0; text-align: left">
+            <span>Tags:
+                {% for tag in article.tags %}
+                    <a href="/tag/{{ tag.id }}">#{{ tag.tag_name }}</a>
+                {% endfor %}
+            </span>
+        </div>
+
         <div class="article_footer">
             <span>Views: {{ article.views }}</span>
 

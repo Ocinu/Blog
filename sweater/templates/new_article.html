@@ -30,6 +30,16 @@
                 </select>
                 <br>
 
+                {% if 'tags_error' in errors %}
+                    <span class="error_message">{{ errors['tags_error'] }}</span><br>
+                {% endif %}
+                <label for="tags">Enter tags separated by a space:</label>
+                {% if check %}
+                    <input type="text" class="form-control" name="tags" id="tags" placeholder="tags"><br>
+                    {% else %}
+                    <input type="text" class="form-control" name="tags" id="tags" value="{{ edit_info.tags }}"><br>
+                {% endif %}
+
                 {% if 'image_error' in errors %}
                     <span class="error_message">{{ errors['image_error'] }}</span><br>
                 {% endif %}

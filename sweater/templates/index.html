@@ -86,7 +86,16 @@
                             <hr>
                             <h4>{{ article.title }}</h4>
                             <p class="post_text">{{ article.text[:200] }}</p>
-                            <p class="post_text_footer">Category: <a href="/category/{{ article.category.id }}">{{ article.category.category_name }}</a></p>
+                            <div class="post_text_footer">
+                                <span>Category: <a href="/category/{{ article.category.id }}">{{ article.category.category_name }}</a></span>
+                                <span>Tags:
+                                    {% for tag in article.tags %}
+                                        <a href="/tag/{{ tag.id }}">#{{ tag.tag_name }}</a>
+                                    {% endfor %}
+                                </span>
+
+                            </div>
+
                         </div>
                         <div class="post_footer">
                             <div class="likes_cont">

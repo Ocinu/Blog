@@ -233,7 +233,8 @@ article {
 }
 
 .post_text_footer {
-    text-align: left;
+    display: flex;
+    justify-content: space-between;
     text-indent: 20px;
     height: 34px;
     margin-top: 6px;

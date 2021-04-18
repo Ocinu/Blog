@@ -1,11 +1,10 @@
-
 from flask import render_template, abort, request, redirect, flash, url_for
 from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.security import check_password_hash
 
 from sweater import app
 from sweater.articles import Articles, NewUser, Author, NewArticle, Post
-from sweater.models import User, Category, Likes
+from sweater.models import User, Category, Likes, Tag
 
 item = Articles()
 
@@ -159,10 +158,11 @@ def new_article():
         author_id = current_user.id
         category_id = request.form['category_id']
         title = request.form['title']
+        tags = request.form['tags']
         text = request.form['text']
         image = request.files['article_image']
 
-        new_post = NewArticle(author_id, category_id, title, text, image)
+        new_post = NewArticle(author_id, category_id, title, tags, text, image)
 
         # переменная для проверки метода в шаблоне
         check_first_iter = False
@@ -243,6 +243,18 @@ def category(category_id):
     return render_template('index.html',
                            title='ItStep Blog',
                            articles=sort_by_category.articles,
+                           user=current_user,
+                           likes_count=likes_count(),
+                           categories=categories)
+
+
+@app.route('/tag/<int:tag_id>')
+def tag(tag_id):
+    categories = Category.query.all()
+    sort_by_tag = Tag.query.get(tag_id)
+    return render_template('index.html',
+                           title='ItStep Blog',
+                           articles=sort_by_tag.articles,
                            user=current_user,
                            likes_count=likes_count(),
                            categories=categories)

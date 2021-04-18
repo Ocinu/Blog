@@ -30,11 +30,18 @@ class User(db.Model, UserMixin):
         return f'{self.id}, {self.login}'
 
 
+tags = db.Table('tags',
+                db.Column('tag_id', db.Integer, db.ForeignKey('tag.id'), primary_key=True),
+                db.Column('article_id', db.Integer, db.ForeignKey('article.id'), primary_key=True)
+                )
+
+
 class Article(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     author_id = db.Column(db.Integer(), db.ForeignKey('user.id'))
     category_id = db.Column(db.Integer(), db.ForeignKey('category.id'))
-    tags = db.relationship('Tag', backref='article')
+    tags = db.relationship('Tag', secondary=tags, lazy='subquery',
+                           backref=db.backref('articles', lazy=True))
     title = db.Column(db.String(100), nullable=False)
     text = db.Column(db.Text, nullable=False)
     image = db.Column(db.String(50), default='')
@@ -59,14 +66,11 @@ class Category(db.Model):
 
 class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    article_id = db.Column(db.Integer(), db.ForeignKey('article.id'))
     tag_name = db.Column(db.String(50), nullable=True, unique=True)
     created_on = db.Column(db.DateTime(), default=datetime.now)
 
     def __repr__(self):
-        return f'{self.id}, {self.tag_name}'
-
-
+        return {self.tag_name}
 
 
 class Likes(db.Model):

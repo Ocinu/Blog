@@ -87,7 +87,7 @@
                             <h4>{{ article.title }}</h4>
                             <p class="post_text">{{ article.text[:200] }}</p>
                             <div class="post_text_footer">
-                                <span>Category: <a href="/category/{{ article.category.id }}">{{ article.category.category_name }}</a></span>
+                                <span>Categories: <a href="/category/{{ article.category.id }}">{{ article.category.category_name }}</a></span>
                                 <span>Tags:
                                     {% for tag in article.tags %}
                                         <a href="/tag/{{ tag.id }}">#{{ tag.tag_name }}</a>
@@ -120,7 +120,7 @@
 
                 {#  Modal  #}
                 <div id="ex{{ article.id }}" class="modal">
-                    <p>Article '{{ article.title }}'  will be <bold>deleted!</bold></p>
+                    <p>PostsTotal '{{ article.title }}'  will be <bold>deleted!</bold></p>
                     <p>continue?</p>
                     <div class="modal_buttons">
                         <a href="/delete/{{ article.id }}">Delete</a>

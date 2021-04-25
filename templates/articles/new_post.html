@@ -15,7 +15,7 @@
                 {% if 'title_error' in errors %}
                     <span class="error_message">{{ errors['title_error'] }}</span><br>
                 {% endif %}
-                <label for="title">Article title:</label>
+                <label for="title">PostsTotal title:</label>
                 {% if check %}
                     <input type="text" class="form-control" name="title" id="title" placeholder="title"><br>
                     {% else %}
@@ -37,19 +37,20 @@
                 {% if check %}
                     <input type="text" class="form-control" name="tags" id="tags" placeholder="tags"><br>
                     {% else %}
-                    <input type="text" class="form-control" name="tags" id="tags" value="{{ edit_info.tags }}"><br>
+                    <input type="text" class="form-control" name="tags" id="tags"
+                           value="{% for i in edit_info.tags %} {{ i }} {% endfor %}"><br>
                 {% endif %}
 
                 {% if 'image_error' in errors %}
                     <span class="error_message">{{ errors['image_error'] }}</span><br>
                 {% endif %}
-                <label for="article_image">Article image:</label><br>
+                <label for="article_image">PostsTotal image:</label><br>
                 <input type="file" name="article_image"><br><br>
 
                 {% if 'text_error' in errors %}
                     <span class="error_message">{{ errors['text_error'] }}</span><br>
                 {% endif %}
-                <label for="text">Article text:</label>
+                <label for="text">PostsTotal text:</label>
                 {% if check %}
                     <textarea class="form-control" rows="5" name="text" id="text" placeholder="text"></textarea><br>
                     {% else %}

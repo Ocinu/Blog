@@ -1,4 +1,6 @@
 /venv/
 /sweater/test.py
-/logs/
 /config.py
+/logs/
+/blog.db
+/static/images/

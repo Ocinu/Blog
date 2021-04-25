@@ -1,4 +1,4 @@
-{% extends 'new_article.html' %}
+{% extends 'articles/new_post.html' %}
 
 {% block body %}
     <div class="form_container">
@@ -9,7 +9,7 @@
                 {% if 'title_error' in errors %}
                     <span class="error_message">{{ errors['title_error'] }}</span><br>
                 {% endif %}
-                <label for="title">Article title:</label>
+                <label for="title">PostsTotal title:</label>
                 {% if check %}
                     <input type="text" class="form-control" name="title" id="title" placeholder="title"><br>
                     {% else %}
@@ -38,13 +38,13 @@
                 {% if 'image_error' in errors %}
                     <span class="error_message">{{ errors['image_error'] }}</span><br>
                 {% endif %}
-                <label for="article_image">Article image:</label><br>
+                <label for="article_image">PostsTotal image:</label><br>
                 <input type="file" name="article_image" value="{{ edit_info.image }}"><br><br>
 
                 {% if 'text_error' in errors %}
                     <span class="error_message">{{ errors['text_error'] }}</span><br>
                 {% endif %}
-                <label for="text">Article text:</label>
+                <label for="text">PostsTotal text:</label>
                 {% if check %}
                     <textarea class="form-control" rows="5" name="text" id="text" placeholder="text"></textarea><br>
                     {% else %}

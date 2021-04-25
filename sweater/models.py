@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from flask_login import UserMixin
 from sqlalchemy import func
 
@@ -45,7 +43,7 @@ class Article(db.Model):
     title = db.Column(db.String(100), nullable=False)
     text = db.Column(db.Text, nullable=False)
     image = db.Column(db.String(50), default='')
-    created_on = db.Column(db.DateTime(), default=datetime.now)
+    created_on = db.Column(db.DateTime(), default=func.now())
     updated_on = db.Column(db.DateTime(timezone=True), onupdate=func.now())
     likes_count = db.Column(db.Integer, default=0)
     views = db.Column(db.Integer, default=0)
@@ -57,17 +55,17 @@ class Article(db.Model):
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     category_name = db.Column(db.String(50), nullable=True, unique=True)
-    created_on = db.Column(db.DateTime(), default=datetime.now)
+    created_on = db.Column(db.DateTime(), default=func.now())
     articles = db.relationship('Article', backref='category')
 
     def __repr__(self):
-        return f'{self.id}, {self.category_name}'
+        return {self.category_name}
 
 
 class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     tag_name = db.Column(db.String(50), nullable=True, unique=True)
-    created_on = db.Column(db.DateTime(), default=datetime.now)
+    created_on = db.Column(db.DateTime(), default=func.now())
 
     def __repr__(self):
         return {self.tag_name}
@@ -77,7 +75,7 @@ class Likes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer(), db.ForeignKey('user.id'))
     post_id = db.Column(db.Integer(), db.ForeignKey('article.id'))
-    date = db.Column(db.DateTime(), default=datetime.now)
+    date = db.Column(db.DateTime(), default=func.now())
 
     def __repr__(self):
         return self.post_id

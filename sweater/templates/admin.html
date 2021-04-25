@@ -1,0 +1,147 @@
+{% extends 'index.html' %}
+
+{% block head %}
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="http://localhost:5000{{ url_for('static', filename='assets/css/style.css') }}" />
+{% endblock %}
+
+
+{% block body %}
+
+    <main role="main" class="container" style="min-height: 83vh">
+        <h3>Users:</h3>
+        <table class="table table-sm table-bordered ">
+          <thead class="table-dark" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Login</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Registration Date</th>
+              <th scope="col">Posts</th>
+              <th scope="col">Permission</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody class="collapse" id="collapseExample">
+
+          {% for author in authors %}
+            <tr>
+              <th scope="row">{{ author.id }}</th>
+              <td>{{ author.login }}</td>
+              <td>{{ author.name }}</td>
+              <td>{{ author.email }}</td>
+              <td>{{ author.registration_date }}</td>
+              <td>{{ author.post_number }}</td>
+              <td>{{ author.access_rights }}</td>
+              <td>
+                  <a href=""><img src="/static/icons/delete.svg" alt="" style="width: 25px; height: 25px"></a>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+
+        <h3>Articles:</h3>
+        <table class="table table-sm table-bordered ">
+          <thead class="table-dark" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Author</th>
+              <th scope="col">Title</th>
+              <th scope="col">Likes</th>
+              <th scope="col">Views</th>
+              <th scope="col">Create</th>
+              <th scope="col">Edit</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody class="collapse" id="collapseExample2">
+
+          {% for article in articles %}
+            <tr>
+              <th scope="row">{{ article.id }}</th>
+              <td>{{ article.author.name }}</td>
+              <td>{{ article.title[:30] }}</td>
+              <td>{{ article.likes_count }}</td>
+              <td>{{ article.views }}</td>
+              <td>{{ article.created_on }}</td>
+              <td>{{ article.updated_on }}</td>
+              <td>
+                  <a href=""><img src="/static/icons/delete.svg" alt="" style="width: 25px; height: 25px"></a>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+
+        <h3>Category:</h3>
+        <table class="table table-sm table-bordered ">
+          <thead class="table-dark" data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">Creation Date</th>
+              <th scope="col">Posts</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody class="collapse" id="collapseExample3">
+
+          {% for category in categories %}
+            <tr>
+              <th scope="row">{{ category.id }}</th>
+              <td>{{ category.category_name }}</td>
+              <td>{{ category.created_on }}</td>
+              <td>{{ category.articles|length }}</td>
+              <td>
+                  <a href=""><img src="/static/icons/delete.svg" alt="" style="width: 25px; height: 25px"></a>
+                  <a href=""><img src="/static/icons/edit.svg" alt="" style="width: 25px; height: 25px"></a>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+
+        <h3>Tags:</h3>
+         <table class="table table-sm table-bordered ">
+          <thead class="table-dark" data-toggle="collapse" data-target="#collapseExample4" aria-expanded="false" aria-controls="collapseExample">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">Creation Date</th>
+              <th scope="col">Posts</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody class="collapse" id="collapseExample4">
+
+          {% for tag in tags %}
+            <tr>
+              <th scope="row">{{ tag.id }}</th>
+              <td>{{ tag.tag_name }}</td>
+              <td>{{ tag.created_on }}</td>
+              <td>{{ tag.articles|length }}</td>
+              <td>
+                  <a href=""><img src="/static/icons/delete.svg" alt="" style="width: 25px; height: 25px"></a>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+
+    </main>
+{% endblock %}
+
+
+{% block scripts %}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+            crossorigin="anonymous"></script>
+{% endblock %}

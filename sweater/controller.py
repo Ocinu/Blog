@@ -3,6 +3,7 @@ import random
 import re
 import string
 
+from sqlalchemy import desc
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from sweater import db, app
@@ -411,10 +412,22 @@ class Post(ValidateArticleData):
         self.delete_from_db(self.post)
         return True
 
-    def edit_post(self, title, text, category_id, image):
+    def edit_post(self, title, tags, text, category_id, image):
         self.post.title = self.check_title(title)
         self.post.text = self.check_text(text)
         self.post.category_id = category_id
+
+        tags = self.check_tags(tags)
+        all_tags = Tag.query.all()
+        all_tags = [i.tag_name for i in all_tags]
+        for i in tags:
+            if i not in all_tags:
+                new_tag = NewTag(i)
+                new_tag.save_tag()
+        for i in tags:
+            tag = Tag.query.filter_by(tag_name=i).first()
+            if tag not in self.post.tags:
+                self.post.tags.append(tag)
         # если поле пустое, оставляем старую картинку
         if image.filename != '':
             temp = self.post.image
@@ -429,6 +442,13 @@ class Post(ValidateArticleData):
             self.save_to_db(self.post)
             return True
         return False
+
+    def delete_tag(self, tag_id):
+        for i in self.post.tags:
+            if i.id == tag_id:
+                self.post.tags.remove(i)
+                self.save_to_db(self.post)
+        return True
 
     def update_views_count(self):
         self.post.views += 1
@@ -473,8 +493,8 @@ class Articles:
     def __init__(self):
         self.articles = Article.query.all()
 
-    def sort_by_date(self):
-        self.articles = Article.query.order_by(Article.created_on).all()
+    def sort_by_date(self,):
+        self.articles = Article.query.order_by(desc(Article.created_on)).all()
         return self.articles
 
     def sort_by_author(self):

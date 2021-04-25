@@ -3,7 +3,7 @@ from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.security import check_password_hash
 
 from sweater import app
-from sweater.articles import Articles, NewUser, Author, NewArticle, Post
+from sweater.controller import Articles, NewUser, Author, NewArticle, Post, TagController
 from sweater.models import User, Category, Likes, Tag
 
 item = Articles()
@@ -58,6 +58,23 @@ def main():
                                user=current_user,
                                likes_count=likes_count(),
                                categories=categories)
+
+
+@app.route('/admin')
+def admin():
+    categories = Category.query.all()
+    posts = Articles().articles
+    all_authors = User.query.all()
+    tags = Tag.query.all()
+    return render_template('admin.html',
+                           title='ItStep Blog',
+                           authors=all_authors,
+                           articles=posts,
+                           user=current_user,
+                           likes_count=likes_count(),
+                           categories=categories,
+                           tags=tags,
+    )
 
 
 # ---  Login block ---
@@ -198,8 +215,9 @@ def edit_article(post_id):
         title = request.form['title']
         text = request.form['text']
         image = request.files['article_image']
+        tags = request.form['tags']
 
-        unit.edit_post(title, text, category_id, image)
+        unit.edit_post(title, tags, text, category_id, image)
         if len(unit.errors) == 0:
             return redirect('/')
         return render_template('edit_post.html',
@@ -258,6 +276,13 @@ def tag(tag_id):
                            user=current_user,
                            likes_count=likes_count(),
                            categories=categories)
+
+
+@app.route('/tag/delete/<int:post_id>/<int:tag_id>')
+def delete_tag(post_id, tag_id):
+    value = Post(post_id)
+    value.delete_tag(tag_id)
+    return redirect(f'/edit/{post_id}')
 
 
 # ---  Users block  ---

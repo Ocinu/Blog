@@ -36,9 +36,20 @@
               <td>{{ author.email }}</td>
               <td>{{ author.registration_date }}</td>
               <td>{{ author.post_number }}</td>
-              <td>{{ author.access_rights }}</td>
               <td>
-                  <a href=""><img src="/static/icons/delete.svg" alt="" style="width: 25px; height: 25px"></a>
+                  <form method="post" action="set_access/{{ author.id }}" class="ml-6">
+                        <div class="row justify-content-center">
+                            <select name="user_access" class="form-control col-5" id="exampleFormControlSelect1">
+                            {% for i in range(1, 6) %}
+                              <option value="{{ i }}" {% if author.access_rights == i %}selected{% endif %}>{{ i }}</option>
+                            {% endfor %}
+                            </select>
+                            <button type="submit" class="btn btn-primary ml-3">Set</button>
+                        </div>
+                   </form>
+              </td>
+              <td class="del_field">
+                  <a href="/delete_user/{{ author.id }}"><img src="/static/icons/delete.svg" alt="" style="width: 45px; height: 45px"></a>
               </td>
             </tr>
           {% endfor %}
@@ -70,8 +81,8 @@
               <td>{{ article.views }}</td>
               <td>{{ article.created_on }}</td>
               <td>{{ article.updated_on }}</td>
-              <td>
-                  <a href=""><img src="/static/icons/delete.svg" alt="" style="width: 25px; height: 25px"></a>
+              <td class="del_field">
+                  <a href="/delete/{{ article.id }}"><img src="/static/icons/delete.svg" alt="" style="width: 45px; height: 45px"></a>
               </td>
             </tr>
           {% endfor %}
@@ -97,14 +108,22 @@
               <td>{{ category.category_name }}</td>
               <td>{{ category.created_on }}</td>
               <td>{{ category.articles|length }}</td>
-              <td>
-                  <a href=""><img src="/static/icons/delete.svg" alt="" style="width: 25px; height: 25px"></a>
-                  <a href=""><img src="/static/icons/edit.svg" alt="" style="width: 25px; height: 25px"></a>
+              <td class="del_field">
+                  <a href="/delete_category/{{ category.id }}"><img src="/static/icons/delete.svg" alt="" style="width: 45px; height: 45px"></a>
               </td>
             </tr>
           {% endfor %}
           </tbody>
         </table>
+
+        <form method="post" action="add_category" class="ml-6">
+            <label for="category_name">New Category:</label>
+            <div class="row justify-content-center">
+                <input type="text" class="form-control col-8" name="category_name">
+                <button type="submit" class="btn btn-primary ml-3">Add</button>
+            </div>
+        </form>
+
 
         <h3>Tags:</h3>
          <table class="table table-sm table-bordered ">
@@ -125,8 +144,8 @@
               <td>{{ tag.tag_name }}</td>
               <td>{{ tag.created_on }}</td>
               <td>{{ tag.articles|length }}</td>
-              <td>
-                  <a href=""><img src="/static/icons/delete.svg" alt="" style="width: 25px; height: 25px"></a>
+              <td class="del_field">
+                  <a href="/delete_tag/{{ tag.id }}"><img src="/static/icons/delete.svg" alt="" style="width: 45px; height: 45px"></a>
               </td>
             </tr>
           {% endfor %}

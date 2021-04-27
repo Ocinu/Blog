@@ -109,6 +109,16 @@ header nav a:hover {
     display: flex;
 }
 
+.main_links {
+    color: #040432;
+    text-decoration: none;
+    transition: text-decoration 0.8s;
+}
+
+.main_links:hover {
+    text-decoration: underline;
+}
+
 
 /* side panel*/
 
@@ -304,6 +314,13 @@ article {
 .modal_buttons {
     display: flex;
     justify-content: space-between;
+}
+
+/*  admin page  */
+.del_field {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* footer */

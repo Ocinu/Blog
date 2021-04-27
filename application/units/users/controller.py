@@ -237,6 +237,11 @@ class UserController(ValidateUserdata):
             print(e)
         self.delete_from_db(self.user)
 
+    def set_access(self, user_access):
+        self.user.access_rights = user_access
+        self.save_to_db(self.user)
+        return True
+
 
 class UsersTotal:
     def __init__(self):

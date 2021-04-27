@@ -1,8 +1,8 @@
-from flask import render_template
+from flask import render_template, redirect, url_for, request
 from flask_login import current_user
 
-from application.units.articles.controller import LikesController
-from application.units.categories.controller import CategoriesTotal, CategoryController
+from application.units.articles.controller import LikesController, PostController
+from application.units.categories.controller import CategoriesTotal, CategoryController, NewCategory
 
 
 class CategoryRoutes:
@@ -26,3 +26,16 @@ class CategoryRoutes:
             self.params['likes_count'] = self.likes.checking_likes()
 
             return render_template('index.html', **self.params)
+
+        @app.route('/add_category', methods=['POST'])
+        def add_category():
+            NewCategory(**request.form).add_new_category()
+            return redirect(url_for('admin'))
+
+        @app.route('/delete_category/<int:category_id>')
+        def delete_category(category_id):
+            item = CategoryController(category_id)
+            item.delete_category()
+            for i in item.category.articles:
+                PostController(i.id).delete_post()
+            return redirect(url_for('admin'))

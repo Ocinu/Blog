@@ -62,7 +62,7 @@
                 <hr>
 
                 {% for category in categories %}
-                    <p><a href="/category/{{ category.id }}">{{ category.category_name }}</a></p>
+                    <p><a href="/category/{{ category.id }}" class="main_links">{{ category.category_name }}</a></p>
                 {% endfor %}
 
             </div>
@@ -80,17 +80,17 @@
                     <div class="post_cont">
                         <div class="post_body">
                             <div class="post_header">
-                                <span><a href="author/{{ article.author.id }}">{{ article.author.name }}</a></span>
+                                <span><a href="author/{{ article.author.id }}" class="main_links">{{ article.author.name }}</a></span>
                                 <span>Date: {{ article.created_on.strftime('%Y-%m-%d') }}</span>
                             </div>
                             <hr>
                             <h4>{{ article.title }}</h4>
                             <p class="post_text">{{ article.text[:200] }}</p>
                             <div class="post_text_footer">
-                                <span>Categories: <a href="/category/{{ article.category.id }}">{{ article.category.category_name }}</a></span>
+                                <span>Categories: <a href="/category/{{ article.category.id }}" class="main_links">{{ article.category.category_name }}</a></span>
                                 <span>Tags:
                                     {% for tag in article.tags %}
-                                        <a href="/tag/{{ tag.id }}">#{{ tag.tag_name }}</a>
+                                        <a href="/tag/{{ tag.id }}" class="main_links">#{{ tag.tag_name }}</a>
                                     {% endfor %}
                                 </span>
 

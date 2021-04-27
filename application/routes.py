@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, flash, url_for
+from flask import render_template, request, redirect, flash, url_for, abort
 from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.security import check_password_hash
 
@@ -49,15 +49,22 @@ class MainRoutes:
                 return render_template('index.html', **self.params)
 
         @app.route('/admin')
+        @login_required
         def admin():
-            self.params['title'] = 'ItStep Blog: administration'
-            self.params['authors'] = UsersTotal().users
-            self.params['articles'] = PostsTotal().articles
-            self.params['likes_count'] = LikesController().checking_likes()
-            self.params['categories'] = CategoriesTotal().categories
-            self.params['tags'] = TagTotal().tags
+            if current_user.access_rights > 4:
+                self.params['title'] = 'ItStep Blog: administration'
+                self.params['authors'] = UsersTotal().users
+                self.params['articles'] = PostsTotal().articles
+                self.params['likes_count'] = LikesController().checking_likes()
+                self.params['categories'] = CategoriesTotal().categories
+                self.params['tags'] = TagTotal().tags
 
-            return render_template('admin.html', **self.params)
+                return render_template('admin.html', **self.params)
+            abort(403)
+
+        @app.route('/about')
+        def about():
+            return render_template('about.html')
 
         # ---  Login block ---
         @app.route('/login', methods=['POST', 'GET'])

@@ -22,9 +22,13 @@ class NewTag(ControlDB):
         return False
 
 
-class TagController:
+class TagController(ControlDB):
     def __init__(self, tag_id):
+        super().__init__()
         self.tag = Tags.query.get(tag_id)
+
+    def delete_tag(self):
+        self.delete_from_db(self.tag)
 
 
 class TagTotal:

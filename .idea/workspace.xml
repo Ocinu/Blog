@@ -1,67 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="52be534e-9ef2-4398-b93c-9794a7c7429b" name="Default Changelist" comment=".">
-      <change afterPath="$PROJECT_DIR$/application/init_routes.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/routes.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/units/articles/controller.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/units/articles/routes.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/assets/css/post.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/assets/css/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/assets/js/script.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/icons/delete.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/icons/edit.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/icons/facebook.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/icons/instagram2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/icons/like.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/icons/share-btns.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/icons/telegram.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/icons/twitter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/articles/article.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/articles/edit_post.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/articles/new_post.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/users/author.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/users/authors.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/users/edit_password.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/users/edit_slug.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/users/edit_user.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/users/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/users/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="52be534e-9ef2-4398-b93c-9794a7c7429b" name="Default Changelist" comment="- refactorings">
+      <change afterPath="$PROJECT_DIR$/templates/about.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Blog.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Blog.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/controller.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/routes.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/static/assets/css/post.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/static/assets/css/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/static/assets/js/script.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/static/icons/delete.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/static/icons/edit.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/static/icons/facebook.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/static/icons/instagram2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/static/icons/like.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/static/icons/share-btns.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/static/icons/telegram.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/static/icons/twitter.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/templates/admin.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/templates/article.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/templates/author.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/templates/authors.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/templates/delete.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/templates/edit_password.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/templates/edit_post.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/templates/edit_slug.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/templates/edit_user.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/templates/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/templates/login.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/templates/new_article.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweater/templates/register.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/application/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/units/categories/controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/application/units/categories/controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/units/categories/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/application/units/categories/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/units/tags/controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/application/units/tags/controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/units/tags/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/application/units/tags/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/units/users/controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/application/units/users/controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/units/users/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/application/units/users/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/assets/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,8 +25,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Flask Main" />
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -115,13 +68,16 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="TODO_SCOPE" value="All Places" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Fake/Blog" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\GitHubRepositories\Blog\sweater\static\icons" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\GitHubRepositories\Blog\templates" />
     </key>
   </component>
   <component name="RunManager" selected="Python.main">
@@ -296,7 +252,9 @@
       <workItem from="1619147397104" duration="18000" />
       <workItem from="1619326898058" duration="717000" />
       <workItem from="1619328664292" duration="2019000" />
-      <workItem from="1619333241039" duration="1281000" />
+      <workItem from="1619333241039" duration="13400000" />
+      <workItem from="1619414056257" duration="11574000" />
+      <workItem from="1619496166666" duration="5013000" />
     </task>
     <task id="LOCAL-00001" summary="Подключение SQLite&#10;Реализация просмотра, редактирования, удаления статей.&#10;Счетчик просмотров, автозаполнение даты">
       <created>1616954941821</created>
@@ -396,7 +354,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619333065101</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="- refactorings">
+      <created>1619335055610</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1619335055610</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -441,7 +406,8 @@
     <MESSAGE value="- правки верстки&#10;- блок &quot;поделится&quot;" />
     <MESSAGE value="- реализация тєгов" />
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="- refactorings" />
+    <option name="LAST_COMMIT_MESSAGE" value="- refactorings" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -453,16 +419,11 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
-    <watches-manager>
-      <inline-watch fileUrl="file://$PROJECT_DIR$/sweater/routes.py" line="326">
-        <watch expression="edit_info" />
-      </inline-watch>
-    </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Blog$test.coverage" NAME="test Coverage Results" MODIFIED="1618988429286" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sweater" />
     <SUITE FILE_PATH="coverage/Blog$database.coverage" NAME="database Coverage Results" MODIFIED="1617337803819" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sweater" />
     <SUITE FILE_PATH="coverage/Blog$app.coverage" NAME="app Coverage Results" MODIFIED="1619090056102" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Blog$main.coverage" NAME="main Coverage Results" MODIFIED="1619333445631" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Blog$main.coverage" NAME="main Coverage Results" MODIFIED="1619428478089" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

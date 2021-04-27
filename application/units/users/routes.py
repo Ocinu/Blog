@@ -51,7 +51,7 @@ class UserRoutes:
         @app.route('/delete_user/<int:user_id>')
         @login_required
         def delete_user(user_id):
-            if user_id == current_user.id:
+            if user_id == current_user.id or current_user.access_rights > 4:
                 delete_info = UserController(user_id)
                 for post in delete_info.user.articles:
                     PostController(post.id).delete_post()
@@ -128,4 +128,11 @@ class UserRoutes:
                     flash('Incorrect password')
                     return render_template('users/edit_password.html', **self.params)
                 return render_template('users/edit_password.html', **self.params)
+            abort(403)
+
+        @app.route('/set_access/<int:user_id>', methods=['POST'])
+        def set_access(user_id):
+            if current_user.access_rights > 4:
+                UserController(user_id).set_access(**request.form)
+                return redirect(url_for('admin'))
             abort(403)

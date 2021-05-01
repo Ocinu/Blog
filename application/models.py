@@ -80,6 +80,16 @@ class Likes(db.Model):
         return self.post_id
 
 
+class Visitors(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    ip_address = db.Column(db.String(), nullable=False)
+    visit_datetime = db.Column(db.DateTime(timezone=True), default=func.now())
+    visit_page = db.Column(db.String())
+
+    def __repr__(self):
+        return self.ip_address
+
+
 # parent classes
 class Errors:
     def __init__(self):
@@ -96,7 +106,7 @@ class ControlDB(Errors):
             db.session.commit()
             return True
         except Exception as e:
-            self.errors['db_error'] = f'{e}'
+            self.errors['db_error'] = str(e)
             return False
 
     def delete_from_db(self, item):
@@ -105,7 +115,7 @@ class ControlDB(Errors):
             db.session.commit()
             return True
         except Exception as e:
-            self.errors['db_error'] = f'{e}'
+            self.errors['db_error'] = str(e)
             return False
 
 

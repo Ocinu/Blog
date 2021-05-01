@@ -323,6 +323,11 @@ article {
     align-items: center;
 }
 
+.diagram {
+    width: 400px;
+    height: 400px;
+}
+
 /* footer */
 
 footer {

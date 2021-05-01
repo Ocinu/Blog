@@ -2,7 +2,7 @@ from flask import render_template, redirect, abort, url_for, request, flash
 from flask_login import login_required, current_user
 
 from application.units.articles.controller import LikesController, PostController
-from application.units.users.controller import UserController, UsersTotal, NewUser
+from application.units.users.controller import UserController, UsersTotal, NewUser, Visit
 
 
 class UserRoutes:
@@ -17,6 +17,7 @@ class UserRoutes:
 
         @app.route('/authors')
         def authors():
+            Visit().add_visit('authors')
             self.params['title'] = 'ItStep Blog: Authors'
             self.params['authors'] = UsersTotal().users
             return render_template('users/authors.html', **self.params)
@@ -24,6 +25,7 @@ class UserRoutes:
         @app.route('/author/<int:user_id>')
         @login_required
         def user_info(user_id):
+            Visit().add_visit('user_info')
             user = UserController(user_id).user
             self.params['likes_number'] = LikesController().likes_number(user_id)
             self.params['author'] = user
@@ -32,6 +34,7 @@ class UserRoutes:
 
         @app.route('/register', methods=['POST', 'GET'])
         def register():
+            Visit().add_visit('register')
             self.params['check'] = True
             self.params['title'] = 'ItStep Blog: Registration'
 
@@ -62,6 +65,7 @@ class UserRoutes:
         @app.route('/edit_user/<int:user_id>', methods=['POST', 'GET'])
         @login_required
         def edit_user(user_id):
+            Visit().add_visit('edit_user')
             if user_id == current_user.id:
                 edit_info = UserController(user_id)
                 self.params['title'] = 'Edit: ' + edit_info.user.name

@@ -3,6 +3,7 @@ from flask_login import current_user, login_required
 
 from application.units.articles.controller import NewPost, PostController, LikesController
 from application.units.categories.controller import CategoriesTotal
+from application.units.users.controller import Visit
 
 
 class ArticleRoutes:
@@ -17,6 +18,7 @@ class ArticleRoutes:
 
         @app.route('/article/<int:post_id>')
         def article(post_id):
+            Visit().add_visit('article')
             post_model = PostController(post_id)
             post_model.update_views_count()
 
@@ -29,6 +31,7 @@ class ArticleRoutes:
         @app.route('/new_article', methods=['POST', 'GET'])
         @login_required
         def new_article():
+            Visit().add_visit('new_article')
             self.params['check'] = True
             if request.method == 'POST':
                 new_post = NewPost(**request.form, **request.files)
@@ -46,6 +49,7 @@ class ArticleRoutes:
         @app.route('/edit/<int:post_id>', methods=['POST', 'GET'])
         @login_required
         def edit_article(post_id):
+            Visit().add_visit('edit_article')
             edit_model = PostController(post_id)
             edit_info = edit_model.post
             self.params['title'] = 'Edit article:' + edit_info.title

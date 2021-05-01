@@ -1,10 +1,11 @@
 import os
 import re
 
-from werkzeug.security import generate_password_hash, check_password_hash
+from flask import request
 
+from werkzeug.security import generate_password_hash, check_password_hash
 from app import app
-from application.models import ValidateImage, Users
+from application.models import ValidateImage, Users, ControlDB, Visitors
 
 
 class ValidateUserdata(ValidateImage):
@@ -246,3 +247,32 @@ class UserController(ValidateUserdata):
 class UsersTotal:
     def __init__(self):
         self.users = Users.query.all()
+
+
+class Visit(ControlDB):
+    def __init__(self):
+        super().__init__()
+        self.visitor = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
+        self.daily_visit = None
+
+    def add_visit(self, page):
+        visit = Visitors()
+        visit.ip_address = self.visitor
+        visit.visit_page = page
+        self.save_to_db(visit)
+
+    def get_statistics(self):
+        self.daily_visit = Visitors.query.all()
+        list_date = {}
+        for i in self.daily_visit:
+            boo = str(i.visit_datetime)
+            if boo[:10] not in list_date:
+                list_date[boo[:10]] = {}
+            if i.ip_address not in list_date[boo[:10]]:
+                list_date[boo[:10]][i.ip_address] = {}
+            if i.visit_page not in list_date[boo[:10]][i.ip_address]:
+                list_date[boo[:10]][i.ip_address][i.visit_page] = 0
+            list_date[boo[:10]][i.ip_address][i.visit_page] += 1
+        return list_date
+
+

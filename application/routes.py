@@ -7,7 +7,7 @@ from application.models import Users
 from application.units.articles.controller import PostsTotal, LikesController
 from application.units.categories.controller import CategoriesTotal
 from application.units.tags.controller import TagTotal
-from application.units.users.controller import UsersTotal
+from application.units.users.controller import UsersTotal, Visit
 
 
 class MainRoutes:
@@ -35,6 +35,7 @@ class MainRoutes:
         def main():
             self.params['likes_count'] = LikesController().checking_likes()
             self.params['categories'] = CategoriesTotal().categories
+            Visit().add_visit('main')
 
             if request.method == 'POST':
                 value = request.form['sort_by']
@@ -52,23 +53,27 @@ class MainRoutes:
         @login_required
         def admin():
             if current_user.access_rights > 4:
+                Visit().add_visit('admin')
                 self.params['title'] = 'ItStep Blog: administration'
                 self.params['authors'] = UsersTotal().users
                 self.params['articles'] = PostsTotal().articles
                 self.params['likes_count'] = LikesController().checking_likes()
                 self.params['categories'] = CategoriesTotal().categories
                 self.params['tags'] = TagTotal().tags
+                self.params['statistic'] = Visit().get_statistics()
 
                 return render_template('admin.html', **self.params)
             abort(403)
 
         @app.route('/about')
         def about():
+            Visit().add_visit('about')
             return render_template('about.html')
 
         # ---  Login block ---
         @app.route('/login', methods=['POST', 'GET'])
         def login_page():
+            Visit().add_visit('login')
             login = request.form.get('login')
             password = request.form.get('password')
             if login and password:

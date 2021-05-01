@@ -6,12 +6,44 @@
           integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
           crossorigin="anonymous">
     <link rel="stylesheet" href="http://localhost:5000{{ url_for('static', filename='assets/css/style.css') }}" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"
+            integrity="sha512-VMsZqo0ar06BMtg0tPsdgRADvl0kDHpTbugCBBrL55KmucH6hP9zWdLIWY//OTfMnzz6xWQRxQqsUFefwHuHyg=="
+            crossorigin="anonymous"></script>
 {% endblock %}
 
 
 {% block body %}
 
+    <p>test
+    <p> [{% for i in statistic.keys() %} {{ i }}, {% endfor %}]</p>
+    <p>[{% for i in statistic %} {{ statistic[i]|length }}, {% endfor %}]</p>
+    <p>[{ {% for i in statistic %} {{ i }}:{{ statistic[i]|length }}, {% endfor %} }]</p>
+    </p>
+
+
+
     <main role="main" class="container" style="min-height: 83vh">
+         <div class="">
+            <canvas id="myChart"></canvas>
+                <script>
+                var ctx = document.getElementById('myChart');
+                var myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: [{% for i in statistic.keys() %} "{{ i }}", {% endfor %}],
+                        datasets: [{
+                            label: 'Visitors per day',
+                            data: [ {% for i in statistic %} {{ statistic[i]|length }}, {% endfor %} ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                            ],
+                            borderWidth: 1
+                        }]
+                    }
+                });
+                </script>
+         </div>
+
         <h3>Users:</h3>
         <table class="table table-sm table-bordered ">
           <thead class="table-dark" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">

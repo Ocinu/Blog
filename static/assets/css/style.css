@@ -4,6 +4,11 @@
     outline: none;
 }
 
+hr {
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
 body {
     width: 100vw;
     min-height: 100vh;
@@ -33,7 +38,7 @@ header {
 header span {
     margin-left: 20px;
     font-family: 'Suez One', serif;
-    font-size: 1.3rem;
+    font-size: 1.8rem;
 }
 
 .header_nav{
@@ -110,7 +115,7 @@ header nav a:hover {
 }
 
 .main_links {
-    color: #040432;
+    color: #7979d6;
     text-decoration: none;
     transition: text-decoration 0.8s;
 }
@@ -131,7 +136,7 @@ aside {
     background-color: #93c5dc80;
     margin-top: 25px;
     display: inline-block;
-    padding-top: 15px;
+    padding-top: 10px;
     width: 95%;
     height: 50px;
     border-radius: 10px;
@@ -292,6 +297,7 @@ article {
 
 .img_like img {
     object-fit: cover;
+    vertical-align: baseline;
 }
 
 .post_edit {
@@ -335,8 +341,12 @@ footer {
     height: 90px;
     background-color: black;
     color: white;
+    display: flex;
+    justify-content: space-around;
     text-align: center;
 }
+
+
 
 /* styling the buttons "will share" */
 .share-btns {

@@ -23,9 +23,6 @@ body {
     background-color: white;
 }
 
-article h2 {
-    margin-top: 30px;
-}
 
 .article_header {
     display: flex;
@@ -47,7 +44,7 @@ article h2 {
 /* new-post */
 .form_container {
     min-height: 80vh;
-    padding-top: 100px;
+    margin: 20px 0;
 }
 
 .error_message {

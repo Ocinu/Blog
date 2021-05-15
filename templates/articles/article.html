@@ -1,6 +1,10 @@
 {% extends 'index.html' %}
 
 {% block head %}
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+          crossorigin="anonymous">
     <link rel="stylesheet" href="http://localhost:5000{{ url_for('static', filename='assets/css/post.css') }}" />
 {% endblock %}
 
@@ -11,7 +15,7 @@
             <span>Category: <a href="/category/{{ article.category.id }}">{{ article.category.category_name }}</a></span>
             <span>Date: {{ article.created_on.strftime('%Y-%m-%d') }}</span>
         </div><hr><br>
-        <p><a href="/author/{{ article.author.id }}">{{ article.author.name }}</a></p>
+        <p style="font-size: 1.4rem"><a href="/author/{{ article.author.id }}">{{ article.author.name }}</a></p>
         <h2>{{ article.title }}</h2>
 
         <p class="article_body">

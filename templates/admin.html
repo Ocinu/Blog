@@ -13,29 +13,21 @@
 
 
 {% block body %}
-
-    <p>test
-    <p> [{% for i in statistic.keys() %} {{ i }}, {% endfor %}]</p>
-    <p>[{% for i in statistic %} {{ statistic[i]|length }}, {% endfor %}]</p>
-    <p>[{ {% for i in statistic %} {{ i }}:{{ statistic[i]|length }}, {% endfor %} }]</p>
-    </p>
-
-
-
     <main role="main" class="container" style="min-height: 83vh">
+
          <div class="">
             <canvas id="myChart"></canvas>
                 <script>
                 var ctx = document.getElementById('myChart');
                 var myChart = new Chart(ctx, {
-                    type: 'line',
+                    type: 'bar',
                     data: {
                         labels: [{% for i in statistic.keys() %} "{{ i }}", {% endfor %}],
                         datasets: [{
                             label: 'Visitors per day',
                             data: [ {% for i in statistic %} {{ statistic[i]|length }}, {% endfor %} ],
                             borderColor: [
-                                'rgba(255, 99, 132, 1)',
+                                'rgb(113,56,163)',
                             ],
                             borderWidth: 1
                         }]

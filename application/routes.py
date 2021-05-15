@@ -68,7 +68,7 @@ class MainRoutes:
         @app.route('/about')
         def about():
             Visit().add_visit('about')
-            return render_template('about.html')
+            return render_template('about.html', **self.params)
 
         # ---  Login block ---
         @app.route('/login', methods=['POST', 'GET'])
